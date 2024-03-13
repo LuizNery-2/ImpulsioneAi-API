@@ -3,8 +3,6 @@ package com.unit.impulsioneai.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.w3c.dom.Text;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
