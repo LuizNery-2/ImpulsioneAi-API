@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name =  "tb_plano_assinatura")
 public class PlanoAssinaturaModel implements Serializable{
-    private static final long serialVersionUID = 2l;
+    private static final long serialVersionUID = 3l;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

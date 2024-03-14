@@ -1,9 +1,9 @@
 package com.unit.impulsioneai.dtos;
 
-import java.util.UUID;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record PlanoAssinaturaRecordDto(@NotBlank UUID idPlanoAssinatura,@NotBlank String nome,@NotBlank String descricao,@NotBlank String beneficios,@NotBlank Double preco) {
+public record PlanoAssinaturaRecordDto(@NotBlank String nome,@NotBlank String descricao,@NotBlank String beneficios,@NotNull Double preco) {
     
 }

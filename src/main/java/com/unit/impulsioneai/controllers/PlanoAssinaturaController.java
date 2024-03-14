@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.unit.impulsioneai.dtos.PlanoAssinaturaRecordDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,10 @@ public class PlanoAssinaturaController {
     PlanoAssinaturaRepository planoAssinaturaRepository;
 
     @PostMapping("/assinaturas")
-    public ResponseEntity<PlanoAssinaturaModel> saveAssinatura(@RequestBody @Valid PlanoAssinaturaRepository planoAssinaturaRepository)
+    public ResponseEntity<PlanoAssinaturaModel> saveAssinatura(@RequestBody @Valid PlanoAssinaturaRecordDto planoAssinaturaRecordDto)
     {
         var planoAssinaturaModel = new PlanoAssinaturaModel();
-        BeanUtils.copyProperties(planoAssinaturaRepository,planoAssinaturaModel);
+        BeanUtils.copyProperties(planoAssinaturaRecordDto,planoAssinaturaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(planoAssinaturaRepository.save(planoAssinaturaModel));
     }
 
@@ -49,13 +50,13 @@ public class PlanoAssinaturaController {
     }
 
     @PutMapping("assinaturas/{id}")
-    public ResponseEntity<Object> updateAssinatura (@PathVariable(value = "id")UUID id,@RequestBody @Valid PlanoAssinaturaRepository planoAssinaturaRepository){
+    public ResponseEntity<Object> updateAssinatura (@PathVariable(value = "id")UUID id,@RequestBody @Valid PlanoAssinaturaRecordDto planoAssinaturaRecordDto){
         Optional<PlanoAssinaturaModel> assinaturaO = planoAssinaturaRepository.findById(id);
         if (assinaturaO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O empreendedor não possui assinaturas para serem atualizadas");
         }
         var planoAssinaturaModel = assinaturaO.get();
-        BeanUtils.copyProperties(planoAssinaturaRepository,planoAssinaturaModel);
+        BeanUtils.copyProperties(planoAssinaturaRecordDto,planoAssinaturaModel);
         return ResponseEntity.status(HttpStatus.OK).body(planoAssinaturaRepository.save(planoAssinaturaModel));
 
     }
