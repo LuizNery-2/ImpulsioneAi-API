@@ -1,3 +1,6 @@
+import com.unit.impulsioneai.controllers.PlanoAssinaturaController;
+import com.unit.impulsioneai.models.PlanoAssinaturaModel;
+import com.unit.impulsioneai.repositories.PlanoAssinaturaRepository;
 import com.unit.impulsioneai.controllers.UsuarioController;
 import com.unit.impulsioneai.dtos.UsuarioRecordDto;
 import com.unit.impulsioneai.models.UsuarioModel;
@@ -27,9 +30,11 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class ImpulsioneaiApplicationTests {
 
-    @Test
-    public void contextLoads() {
-    }
+    @Mock
+    private PlanoAssinaturaRepository planoAssinaturaRepository;
+
+    @InjectMocks
+    private PlanoAssinaturaController planoAssinaturaController;
 
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -40,6 +45,79 @@ public class ImpulsioneaiApplicationTests {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void testSaveAssinatura() {
+        PlanoAssinaturaModel model = new PlanoAssinaturaModel();
+        model.setNome("Plano 1");
+
+        when(planoAssinaturaRepository.save(any(PlanoAssinaturaModel.class))).thenReturn(model);
+
+        ResponseEntity<PlanoAssinaturaModel> response = planoAssinaturaController.saveAssinatura(model);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(model, response.getBody());
+    }
+
+    @Test
+    public void testGetAllAssinaturas() {
+        List<PlanoAssinaturaModel> assinaturas = new ArrayList<>();
+        assinaturas.add(new PlanoAssinaturaModel());
+        assinaturas.add(new PlanoAssinaturaModel());
+
+        when(planoAssinaturaRepository.findAll()).thenReturn(assinaturas);
+
+        ResponseEntity<List<PlanoAssinaturaModel>> response = planoAssinaturaController.getAllAssinaturas();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(assinaturas, response.getBody());
+    }
+
+    @Test
+    public void testGetAssinaturas() {
+        UUID id = UUID.randomUUID();
+        PlanoAssinaturaModel assinatura = new PlanoAssinaturaModel();
+
+        when(planoAssinaturaRepository.findById(id)).thenReturn(Optional.of(assinatura));
+
+        ResponseEntity<Object> response = planoAssinaturaController.getAssinaturas(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(assinatura, response.getBody());
+    }
+
+    @Test
+    public void testUpdateAssinatura() {
+        UUID id = UUID.randomUUID();
+        PlanoAssinaturaModel model = new PlanoAssinaturaModel();
+        model.setNome("Novo Plano");
+
+        PlanoAssinaturaModel existingAssinatura = new PlanoAssinaturaModel();
+        existingAssinatura.setId(id);
+
+        when(planoAssinaturaRepository.findById(id)).thenReturn(Optional.of(existingAssinatura));
+
+        ResponseEntity<Object> response = planoAssinaturaController.updateAssinatura(id, model);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody() instanceof PlanoAssinaturaModel);
+
+        PlanoAssinaturaModel updatedAssinatura = (PlanoAssinaturaModel) response.getBody();
+        assertEquals(model.getNome(), updatedAssinatura.getNome());
+    }
+
+    @Test
+    public void testDeleteAssinatura() {
+        UUID id = UUID.randomUUID();
+        PlanoAssinaturaModel assinatura = new PlanoAssinaturaModel();
+
+        when(planoAssinaturaRepository.findById(id)).thenReturn(Optional.of(assinatura));
+
+        ResponseEntity<Object> response = planoAssinaturaController.deleteAssinatura(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Assinatura deletada com sucesso", response.getBody());
     }
 
     @Test
