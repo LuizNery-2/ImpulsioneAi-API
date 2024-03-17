@@ -17,6 +17,7 @@ public class AnuncioModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idAnuncio;
     private String urlAnuncio;
+    private String urlImagemAnuncio;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataInicialAnuncio;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
