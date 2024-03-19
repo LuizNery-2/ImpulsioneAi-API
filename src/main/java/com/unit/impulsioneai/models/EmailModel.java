@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.unit.impulsioneai.enums.StatusEmail;
+
 @Entity
 @Table(name = "TB_EMAIL")
 public class EmailModel implements Serializable {

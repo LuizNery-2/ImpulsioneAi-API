@@ -9,6 +9,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.unit.impulsioneai.enums.StatusEmail;
+import com.unit.impulsioneai.models.EmailModel;
+import com.unit.impulsioneai.repositories.EmailRepository;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
