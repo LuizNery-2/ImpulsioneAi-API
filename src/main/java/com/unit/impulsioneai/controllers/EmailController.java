@@ -21,13 +21,12 @@ import java.util.UUID;
 
 
 @RestController
-@CrossOrigin("*")
 public class EmailController {
 
     @Autowired
     EmailService emailService;
 
-    @PostMapping("/sending-email")
+    @PostMapping("/email")
     public ResponseEntity<EmailModel> sendingEmail(@RequestBody @Valid EmailRecordDto emailDto) {
         EmailModel emailModel = new EmailModel();
         BeanUtils.copyProperties(emailDto, emailModel);

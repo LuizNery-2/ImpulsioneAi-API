@@ -1,9 +1,9 @@
-{"properties": [{
-  "name": "spring.rabbitmq.queue",
-  "type": "java.lang.String",
-  "description": "A description for 'spring.rabbitmq.queue'"
-}]}{"properties": [{
-  "name": "spring.rabbitmq.queue",
-  "type": "java.lang.String",
-  "description": "A description for 'spring.rabbitmq.queue'"
-}]}
+// {"properties": [{
+//   "name": "spring.rabbitmq.queue",
+//   "type": "java.lang.String",
+//   "description": "A description for 'spring.rabbitmq.queue'"
+// }]}{"properties": [{
+//   "name": "spring.rabbitmq.queue",
+//   "type": "java.lang.String",
+//   "description": "A description for 'spring.rabbitmq.queue'"
+// }]}
