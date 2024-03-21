@@ -1,6 +1,7 @@
 package com.unit.impulsioneai.models;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class EnderecoModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int  idEndereco;
+    private UUID idEndereco;
 
     private String cpfEmpreendedor;
     private String uf;
@@ -27,7 +28,7 @@ public class EnderecoModel implements Serializable{
     private String numero;
 
 
-    
+
     public String getCpfEmpreendedor() {
         return cpfEmpreendedor;
     }
