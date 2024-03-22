@@ -198,4 +198,83 @@ public class ImpulsioneaiApplicationTests {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Usuário deletado com sucesso", response.getBody());
     }
+
+    @Test
+    public void testSaveEmpreendedor() {
+        EmpreendedoresRecordDto dto = new EmpreendedoresRecordDto();
+        dto.setNome("Nome");
+        dto.setEmail("email@example.com");
+
+        EmpreendedorModel model = new EmpreendedorModel();
+        BeanUtils.copyProperties(dto, model);
+
+        when(empreendedoresRepository.save(any(EmpreendedorModel.class))).thenReturn(model);
+
+        ResponseEntity<EmpreendedorModel> response = empreendedoresController.saveEmpreendedor(dto);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(model, response.getBody());
+    }
+
+    @Test
+    public void testGetAllEmpreendedores() {
+        List<EmpreendedorModel> empreendedores = new ArrayList<>();
+        empreendedores.add(new EmpreendedorModel());
+        empreendedores.add(new EmpreendedorModel());
+
+        when(empreendedoresRepository.findAll()).thenReturn(empreendedores);
+
+        ResponseEntity<List<EmpreendedorModel>> response = empreendedoresController.getAllEmpreendedores();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(empreendedores, response.getBody());
+    }
+
+    @Test
+    public void testGetEmpreendedor() {
+        UUID id = UUID.randomUUID();
+        EmpreendedorModel empreendedor = new EmpreendedorModel();
+
+        when(empreendedoresRepository.findById(id)).thenReturn(Optional.of(empreendedor));
+
+        ResponseEntity<Object> response = empreendedoresController.getEmpreendedor(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(empreendedor, response.getBody());
+    }
+
+    @Test
+    public void testUpdateEmpreendedor() {
+        UUID id = UUID.randomUUID();
+        EmpreendedoresRecordDto dto = new EmpreendedoresRecordDto();
+        dto.setNome("Novo Nome");
+        dto.setEmail("novoemail@example.com");
+
+        EmpreendedorModel existingEmpreendedor = new EmpreendedorModel();
+        existingEmpreendedor.setId(id);
+
+        when(empreendedoresRepository.findById(id)).thenReturn(Optional.of(existingEmpreendedor));
+
+        ResponseEntity<Object> response = empreendedoresController.updateEmpreendedor(id, dto);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody() instanceof EmpreendedorModel);
+
+        EmpreendedorModel updatedEmpreendedor = (EmpreendedorModel) response.getBody();
+        assertEquals(dto.getNome(), updatedEmpreendedor.getNome());
+        assertEquals(dto.getEmail(), updatedEmpreendedor.getEmail());
+    }
+
+    @Test
+    public void testDeleteEmpreendedor() {
+        UUID id = UUID.randomUUID();
+        EmpreendedorModel empreendedor = new EmpreendedorModel();
+
+        when(empreendedoresRepository.findById(id)).thenReturn(Optional.of(empreendedor));
+
+        ResponseEntity<Object> response = empreendedoresController.deleteUsuario(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Empreendedor deletado com sucesso", response.getBody());
+    }
 }
