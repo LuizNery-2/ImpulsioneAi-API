@@ -21,16 +21,69 @@ public class EmpreendedorModel implements Serializable {
     private String biografia;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date tempoAtuacao;
+    private Date dataNascimento;
 
+     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    // private Date tempoAtuacao;
 
     private String telefone;
-
-    private String endereco;
     private String site;
-    private String redeSocial;
+    private String nomeCompleto;
+    private String cpf;
+    private String mei;
+    private String senha;
+    private String nomeEmpreendimento;
+   
 
-    private boolean verificado;
+    
+
+   
+
+
+    
+   
+
+    
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getMei() {
+        return mei;
+    }
+
+    public void setMei(String mei) {
+        this.mei = mei;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getNomeEmpreendimento() {
+        return nomeEmpreendimento;
+    }
+
+    public void setNomeEmpreendimento(String nomeEmpreendimento) {
+        this.nomeEmpreendimento = nomeEmpreendimento;
+    }
 
     public UUID getIdEmpreededor() {
         return idEmpreededor;
@@ -44,14 +97,6 @@ public class EmpreendedorModel implements Serializable {
         this.biografia = biografia;
     }
 
-    public Date getTempoAtuacao() {
-        return tempoAtuacao;
-    }
-
-    public void setTempoAtuacao(Date tempoAtuacao) {
-        this.tempoAtuacao = tempoAtuacao;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -60,35 +105,11 @@ public class EmpreendedorModel implements Serializable {
         this.telefone = telefone;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public String getSite() {
         return site;
     }
 
     public void setSite(String site) {
         this.site = site;
-    }
-
-    public String getRedeSocial() {
-        return redeSocial;
-    }
-
-    public void setRedeSocial(String redeSocial) {
-        this.redeSocial = redeSocial;
-    }
-
-    public boolean isVerificado() {
-        return verificado;
-    }
-
-    public void setVerificado(boolean verificado) {
-        this.verificado = verificado;
     }
 }
