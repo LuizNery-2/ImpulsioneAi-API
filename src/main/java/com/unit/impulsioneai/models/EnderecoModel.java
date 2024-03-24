@@ -24,7 +24,7 @@ public class EnderecoModel implements Serializable{
     private String uf;
     private String  cidade;
     private String bairro;
-    private String logradouro;
+    private String logadouro;
     private String numero;
 
 
@@ -53,11 +53,11 @@ public class EnderecoModel implements Serializable{
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    public String getLogradouro() {
-        return logradouro;
+    public String getlogadouro() {
+        return logadouro;
     }
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setlogadouro(String logadouro) {
+        this.logadouro = logadouro;
     }
     public String getNumero() {
         return numero;
