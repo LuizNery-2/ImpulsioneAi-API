@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record EmpreendedoresRecordDto(
         String biografia,
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") Date dataNascimento, 
-        String telefone, String site, String nomeCompleto, String cpf, String mei, String senha, String nomeEmpreendimento
+        Date dataNascimento, 
+        String telefone, String site, String nomeCompleto, String cpf, String mei, String senha, 
+        String nomeEmpreendimento,String email, int planoAssinatura, String facebook, String instagram, String nicho, String modalidade
     ) {
     
 }

@@ -20,11 +20,19 @@ public class EmpreendedorModel implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String biografia;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
      // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     // private Date tempoAtuacao;
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
     private String telefone;
     private String site;
@@ -33,17 +41,63 @@ public class EmpreendedorModel implements Serializable {
     private String mei;
     private String senha;
     private String nomeEmpreendimento;
+    private String email;
+    private int planoAssinatura;
+    private String facebook;
+    private String instagram;
+    private String nicho;
+    private String modalidade;
    
 
-    
-
-   
 
 
-    
-   
+    public String getModalidade() {
+        return modalidade;
+    }
 
-    
+    public void setModalidade(String modalidade) {
+        this.modalidade = modalidade;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getNicho() {
+        return nicho;
+    }
+
+    public void setNicho(String nicho) {
+        this.nicho = nicho;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPlanoAssinatura() {
+        return planoAssinatura;
+    }
+
+    public void setPlanoAssinatura(int planoAssinatura) {
+        this.planoAssinatura = planoAssinatura;
+    }
 
     public String getNomeCompleto() {
         return nomeCompleto;
