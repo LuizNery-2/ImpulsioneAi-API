@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.models;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
