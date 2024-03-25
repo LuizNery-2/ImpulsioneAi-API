@@ -22,6 +22,7 @@ import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 
 import jakarta.validation.Valid;
+
 @CrossOrigin (origins = "*")
 @RestController
 public class EmpreendedoresController {
