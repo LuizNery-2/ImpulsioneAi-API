@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.models;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,8 +18,17 @@ public class UsuarioModel implements Serializable {
     private String nome;
     private String email;
     private String senha;
+    private String cpf;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
     public UUID getIdUsuario() {
