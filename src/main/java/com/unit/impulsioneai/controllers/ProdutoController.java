@@ -19,6 +19,7 @@ public class ProdutoController {
     @Autowired
     ProdutoRepository produtoRepository;
 
+
     @PostMapping("/produtos")
     public ResponseEntity<ProdutoModel> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto){
         var produtoModel = new ProdutoModel();
@@ -38,6 +39,17 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
         }
         return ResponseEntity.status(HttpStatus.OK).body(produtoO.get());
+
+    }
+    @GetMapping("buscar/produtos/{nomeProduto}")
+    public ResponseEntity<Object> getProdutosByName(@PathVariable(value = "nomeProduto")String nomeProduto){
+
+            var produtos = produtoRepository.findByNomeContainingIgnoreCase(nomeProduto);
+            if (produtos.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+             }
+            return ResponseEntity.status(HttpStatus.OK).body(produtos);
+
 
     }
 
@@ -62,4 +74,5 @@ public class ProdutoController {
         produtoRepository.delete(produtoModel);
         return ResponseEntity.status(HttpStatus.OK).body("Produto excluido com sucesso");
     }
+
 }
