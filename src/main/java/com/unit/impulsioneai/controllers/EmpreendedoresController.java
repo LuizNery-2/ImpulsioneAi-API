@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +36,11 @@ public class EmpreendedoresController {
     {
         var empreendedorModel = new EmpreendedorModel();
         BeanUtils.copyProperties(empreendedoresRecordDto,empreendedorModel);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(empreendedoresRecordDto.senha());
+        empreendedorModel.setSenha(encryptedPassword);
         return ResponseEntity.status(HttpStatus.CREATED).body(empreendedoresRepository.save(empreendedorModel));
     }
+
 
     @GetMapping("/empreendedores")
     public ResponseEntity<List<EmpreendedorModel>> getAllEmpreendedores(){
