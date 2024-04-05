@@ -1,6 +1,7 @@
 package com.unit.impulsioneai.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,6 +45,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String nomeCompleto;
     private String cpf;
     private String mei;
+    @JsonIgnoreProperties("senha")
     private String senha;
     private String nomeEmpreendimento;
     private String email;

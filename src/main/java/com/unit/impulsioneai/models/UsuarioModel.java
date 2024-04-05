@@ -1,13 +1,16 @@
 package com.unit.impulsioneai.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +23,7 @@ public class UsuarioModel implements Serializable, UserDetails {
     private UUID idUsuario;
     private String nome;
     private String email;
+    @JsonIgnoreProperties("senha")
     private String senha;
     private String cpf;
 
@@ -72,7 +76,7 @@ public class UsuarioModel implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 
     @Override

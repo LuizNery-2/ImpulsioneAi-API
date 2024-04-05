@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/empreendedores").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/produtos").hasRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.GET, "/produtos").permitAll()
                         .anyRequest().authenticated())

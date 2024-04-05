@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.unit.impulsioneai.models.EmpreendedorModel;
+import com.unit.impulsioneai.models.UsuarioModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,19 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("ImpulsionaAPI")
                     .withSubject(empreendedorModel.getEmail())
+                    .withExpiresAt(getExpirationDate())
+                    .sign(algorithm);
+        }
+        catch (JWTCreationException exception){
+            throw new RuntimeException("Erro while generating tokken: " + exception);
+        }
+    }
+    public String genereteToken(UsuarioModel usuarioModel){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.create()
+                    .withIssuer("ImpulsionaAPI")
+                    .withSubject(usuarioModel.getEmail())
                     .withExpiresAt(getExpirationDate())
                     .sign(algorithm);
         }
