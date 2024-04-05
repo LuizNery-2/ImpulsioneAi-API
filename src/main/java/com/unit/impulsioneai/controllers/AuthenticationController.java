@@ -3,6 +3,7 @@ package com.unit.impulsioneai.controllers;
 
 import com.unit.impulsioneai.Services.TokenService;
 import com.unit.impulsioneai.dtos.EmpreendedoresRecordDto;
+import com.unit.impulsioneai.dtos.LoginRecordDTO;
 import com.unit.impulsioneai.dtos.TokenRecordDTO;
 import com.unit.impulsioneai.models.EmpreendedorModel;
 import jakarta.validation.Valid;
@@ -26,9 +27,9 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @PostMapping("/login")
-    public ResponseEntity<TokenRecordDTO> login(@RequestBody @Valid EmpreendedoresRecordDto empreendedoresRecordDto)
+    public ResponseEntity<TokenRecordDTO> login(@RequestBody @Valid LoginRecordDTO loginRecordDTO)
     {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(empreendedoresRecordDto.email(), empreendedoresRecordDto.senha());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(loginRecordDTO.email(), loginRecordDTO.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.genereteToken((EmpreendedorModel) auth.getPrincipal());
         return ResponseEntity.status(HttpStatus.OK).body(new TokenRecordDTO(token));
