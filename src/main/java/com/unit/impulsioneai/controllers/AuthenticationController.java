@@ -34,10 +34,10 @@ public class AuthenticationController {
         if (principal instanceof EmpreendedorModel empreendedorModel)
         {
             var token = tokenService.genereteToken((EmpreendedorModel) auth.getPrincipal());
-            return ResponseEntity.status(HttpStatus.OK).body(new AuthenticatedResponseRecordDto(token,empreendedorModel.getIdEmpreededor()));
+            return ResponseEntity.status(HttpStatus.OK).body(new AuthenticatedResponseRecordDto(token,empreendedorModel.getIdEmpreededor(),"empreendedores"));
         }
             var token = tokenService.genereteToken((UsuarioModel) auth.getPrincipal());
             UsuarioModel usuarioModel =(UsuarioModel) principal;
-        return ResponseEntity.status(HttpStatus.OK).body(new AuthenticatedResponseRecordDto(token,usuarioModel.getIdUsuario()));
+        return ResponseEntity.status(HttpStatus.OK).body(new AuthenticatedResponseRecordDto(token,usuarioModel.getIdUsuario(),"usuarios"));
     }
 }

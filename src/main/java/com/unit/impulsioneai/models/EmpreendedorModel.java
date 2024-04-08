@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_empreendedor")
+@JsonIgnoreProperties({"senha","password"})
 public class EmpreendedorModel implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 2L;
@@ -45,7 +46,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String nomeCompleto;
     private String cpf;
     private String mei;
-    @JsonIgnoreProperties("senha")
+
     private String senha;
     private String nomeEmpreendimento;
     private String email;
@@ -177,6 +178,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     }
 
     @Override
+    @JsonIgnoreProperties("password")
     public String getPassword() {
         return senha;
     }
