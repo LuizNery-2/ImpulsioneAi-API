@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -64,6 +66,29 @@ public class UsuarioController {
         var usuarioModel = usuarioO.get();
        usuarioRepository.delete(usuarioModel);
         return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso");
+    }
+
+
+    @GetMapping("/verificaUsuarios")
+    // public ResponseEntity<Object> verificarUsuarioPorEmail(@RequestParam String email) {
+    //     UsuarioModel usuario = usuarioRepository.findByEmail(email);
+    //     if (usuario != null) {
+    //         return ResponseEntity.ok(usuario.getNome());
+    //     } else {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+    //     }
+    // }
+    public ResponseEntity<Object> verificarUsuarioPorEmail(@RequestParam String email) {
+        UsuarioModel usuario = usuarioRepository.findByEmail(email);
+        if (usuario != null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("nome", usuario.getNome());
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("mensagem", "Usuário não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
     }
 
 
