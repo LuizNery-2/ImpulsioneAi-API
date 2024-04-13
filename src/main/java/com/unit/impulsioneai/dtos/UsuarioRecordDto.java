@@ -7,4 +7,16 @@ public record UsuarioRecordDto(String nome,
                                String senha,
                                String cpf,
                                Date dataNascimento) {
+
+                                
+
+                                
+                                
+                                public String getSenha() {
+                                    return senha;
+                                }
+                            
+                                
+
+    
 }

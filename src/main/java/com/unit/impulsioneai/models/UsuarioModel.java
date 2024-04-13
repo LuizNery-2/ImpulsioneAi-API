@@ -66,4 +66,8 @@ public class UsuarioModel implements Serializable {
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
+   
+
+    
 }
