@@ -14,7 +14,7 @@ public class NichoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private int idNicho;
 
     private String nicho;
 
@@ -23,7 +23,7 @@ public class NichoModel implements Serializable {
     private HashSet<ProdutoModel> produtos = new HashSet<>();
 
     public int getId() {
-        return id;
+        return idNicho;
     }
 
        public String getNicho() {

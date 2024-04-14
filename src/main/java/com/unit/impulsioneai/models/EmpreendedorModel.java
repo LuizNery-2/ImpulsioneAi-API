@@ -1,15 +1,22 @@
 package com.unit.impulsioneai.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
 @Entity
 @Table(name = "tb_empreendedor")
-public class EmpreendedorModel implements Serializable {
+public class EmpreendedorModel implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 2L;
     @Id
@@ -38,6 +45,7 @@ public class EmpreendedorModel implements Serializable {
     private String nomeCompleto;
     private String cpf;
     private String mei;
+    @JsonIgnoreProperties("senha")
     private String senha;
     private String nomeEmpreendimento;
     private String email;
@@ -46,9 +54,6 @@ public class EmpreendedorModel implements Serializable {
     private String instagram;
     private String nicho;
     private String modalidade;
-   
-
-
 
     public String getModalidade() {
         return modalidade;
@@ -164,5 +169,40 @@ public class EmpreendedorModel implements Serializable {
 
     public void setSite(String site) {
         this.site = site;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_EMPREENDEDOR"));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

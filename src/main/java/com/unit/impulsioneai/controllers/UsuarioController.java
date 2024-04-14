@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -28,6 +29,8 @@ public class UsuarioController {
     {
         var usuarioModel = new UsuarioModel();
         BeanUtils.copyProperties(usuarioRecordDto,usuarioModel);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioRecordDto.senha());
+        usuarioModel.setSenha(encryptedPassword);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuarioModel));
     }
 

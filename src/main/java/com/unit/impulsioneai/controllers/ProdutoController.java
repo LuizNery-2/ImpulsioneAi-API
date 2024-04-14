@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +20,15 @@ public class ProdutoController {
     @Autowired
     ProdutoRepository produtoRepository;
 
+
+    @PreAuthorize("hasRole('EMPREENDEDOR')")
     @PostMapping("/produtos")
     public ResponseEntity<ProdutoModel> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto){
         var produtoModel = new ProdutoModel();
         BeanUtils.copyProperties(produtoRecordDto, produtoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produtoModel));
     }
+    @PreAuthorize("permitAll()")
     @GetMapping("/produtos")
     public ResponseEntity<List<ProdutoModel>> getAllProdutos(){
 
@@ -38,6 +42,17 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
         }
         return ResponseEntity.status(HttpStatus.OK).body(produtoO.get());
+
+    }
+    @GetMapping("buscar/produtos/{nomeProduto}")
+    public ResponseEntity<Object> getProdutosByName(@PathVariable(value = "nomeProduto")String nomeProduto){
+
+            var produtos = produtoRepository.findByNomeContainingIgnoreCase(nomeProduto);
+            if (produtos.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+             }
+            return ResponseEntity.status(HttpStatus.OK).body(produtos);
+
 
     }
 
@@ -62,4 +77,5 @@ public class ProdutoController {
         produtoRepository.delete(produtoModel);
         return ResponseEntity.status(HttpStatus.OK).body("Produto excluido com sucesso");
     }
+
 }
