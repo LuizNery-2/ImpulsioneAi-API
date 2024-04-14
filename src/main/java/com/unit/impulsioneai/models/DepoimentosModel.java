@@ -22,9 +22,16 @@ public class DepoimentosModel implements Serializable{
 
     private UUID idEmpreededor;
     private String depoimento;
+    private String nomeUsuario;
 
 
 
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
     public String getDepoimento() {
         return depoimento;
     }
