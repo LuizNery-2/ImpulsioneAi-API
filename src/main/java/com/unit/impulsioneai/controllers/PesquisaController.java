@@ -35,6 +35,24 @@ public class PesquisaController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(new PesquisaRecordDto(produtosPesquisados, empreendedoresPesquisados));
     }
+    @GetMapping("/buscar/produtos/{pesquisa}")
+    public ResponseEntity<Object> pesquisarProdutos(@PathVariable(value = "pesquisa") String pesquisa){
+        List<ProdutoModel> produtosPesquisados = produtoRepository.findBySearch(pesquisa);
+        if (produtosPesquisados.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body("Nenhum produto encontrado");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(produtosPesquisados);
 
+    }
+
+    @GetMapping("/buscar/empreendedores/{pesquisa}")
+    public ResponseEntity<Object> pesquisarEmpreendedores(@PathVariable(value = "pesquisa") String pesquisa){
+        List<EmpreendedorModel> empreendedoresPesquisados = empreendedoresRepository.findBySearch(pesquisa);
+        if (empreendedoresPesquisados.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body("Nenhum produto encontrado");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(empreendedoresPesquisados);
+
+    }
 
 }
