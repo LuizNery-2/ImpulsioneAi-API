@@ -74,11 +74,6 @@ public class UsuarioModel implements Serializable, UserDetails {
         this.dataNascimento = dataNascimento;
     }
 
-<<<<<<< HEAD
-   
-
-    
-=======
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
@@ -113,5 +108,4 @@ public class UsuarioModel implements Serializable, UserDetails {
     public boolean isEnabled() {
         return true;
     }
->>>>>>> login_seguro
 }

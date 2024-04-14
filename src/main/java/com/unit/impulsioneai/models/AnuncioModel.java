@@ -18,6 +18,14 @@ public class AnuncioModel implements Serializable {
     private UUID idAnuncio;
     private String urlAnuncio;
     private String urlImagemAnuncio;
+    public String getUrlImagemAnuncio() {
+        return urlImagemAnuncio;
+    }
+
+    public void setUrlImagemAnuncio(String urlImagemAnuncio) {
+        this.urlImagemAnuncio = urlImagemAnuncio;
+    }
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataInicialAnuncio;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
