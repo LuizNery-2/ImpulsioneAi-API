@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.components;
 
 import com.unit.impulsioneai.Services.TokenService;
-import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import com.unit.impulsioneai.repositories.UsuarioRepository;
 import jakarta.servlet.FilterChain;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.security.Security;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
