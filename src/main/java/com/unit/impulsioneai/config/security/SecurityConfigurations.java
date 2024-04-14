@@ -33,6 +33,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST,"/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/produtos").hasRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.GET, "/produtos").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/endereco").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/email").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
