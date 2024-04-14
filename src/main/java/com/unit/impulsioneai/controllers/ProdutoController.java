@@ -44,17 +44,6 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoO.get());
 
     }
-    @GetMapping("buscar/produtos/{nomeProduto}")
-    public ResponseEntity<Object> getProdutosByName(@PathVariable(value = "nomeProduto")String nomeProduto){
-
-            var produtos = produtoRepository.findByNomeContainingIgnoreCase(nomeProduto);
-            if (produtos.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
-             }
-            return ResponseEntity.status(HttpStatus.OK).body(produtos);
-
-
-    }
 
     @PutMapping("/produtos/{id}")
     public ResponseEntity<Object> updadeProduto (@PathVariable(value = "id") UUID id, @RequestBody @Valid ProdutoRecordDto produtoRecordDto){
