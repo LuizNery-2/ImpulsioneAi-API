@@ -3,7 +3,6 @@ package com.unit.impulsioneai.controllers;
 import com.unit.impulsioneai.dtos.ProdutoRecordDto;
 import com.unit.impulsioneai.models.ProdutoModel;
 import com.unit.impulsioneai.repositories.ProdutoRepository;
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
