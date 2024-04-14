@@ -99,8 +99,10 @@ public class UsuarioController {
         
         
         if (usuarioRecordDto.getSenha() != null && !usuarioRecordDto.getSenha().isEmpty()) {
-            
-            usuarioModel.setSenha(usuarioRecordDto.getSenha());
+
+            String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioRecordDto.senha());
+            usuarioModel.setSenha(encryptedPassword);
+
         }
 
        
