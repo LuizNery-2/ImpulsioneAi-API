@@ -29,12 +29,18 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/empreendedores").permitAll()
                         .requestMatchers(HttpMethod.POST,"/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/produtos").hasRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.GET, "/produtos").permitAll()
                         .requestMatchers(HttpMethod.POST, "/endereco").permitAll()
                         .requestMatchers(HttpMethod.POST, "/email").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/verificaUsuarios").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/verificaUsuarios").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/editarSenha").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/editarSenha").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
