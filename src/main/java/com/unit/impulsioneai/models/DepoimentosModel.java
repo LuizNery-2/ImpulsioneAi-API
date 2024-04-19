@@ -23,9 +23,16 @@ public class DepoimentosModel implements Serializable{
     private UUID idEmpreededor;
     private String depoimento;
     private String nomeUsuario;
+    private int qdtEstrelas;
 
 
 
+    public int getQdtEstrelas() {
+        return qdtEstrelas;
+    }
+    public void setQdtEstrelas(int qdtEstrelas) {
+        this.qdtEstrelas = qdtEstrelas;
+    }
     public String getNomeUsuario() {
         return nomeUsuario;
     }
