@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @JsonIgnoreProperties({"senha","password"})
 public class EmpreendedorModel implements Serializable, UserDetails {
 
+    @Serial
     private static final long serialVersionUID = 2L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +48,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String nomeCompleto;
     private String cpf;
     private String mei;
-
+    private boolean verificado = false;
     private String senha;
     private String nomeEmpreendimento;
     private String email;
@@ -172,6 +174,14 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         this.site = site;
     }
 
+    public boolean isVerificado() {
+        return verificado;
+    }
+
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_EMPREENDEDOR"));
@@ -205,6 +215,6 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return verificado;
     }
 }

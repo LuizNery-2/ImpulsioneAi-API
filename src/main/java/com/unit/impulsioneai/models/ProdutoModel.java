@@ -4,6 +4,7 @@ package com.unit.impulsioneai.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -11,7 +12,8 @@ import java.util.UUID;
 @Table(name = "tb_produtos")
 public class ProdutoModel implements Serializable{
 
-    private static final long serialVersionUID = 5l;
+    @Serial
+    private static final long serialVersionUID = 6L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

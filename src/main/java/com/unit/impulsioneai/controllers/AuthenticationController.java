@@ -4,6 +4,7 @@ package com.unit.impulsioneai.controllers;
 import com.unit.impulsioneai.Services.TokenService;
 import com.unit.impulsioneai.dtos.LoginRecordDTO;
 import com.unit.impulsioneai.dtos.AuthenticatedResponseRecordDto;
+import com.unit.impulsioneai.models.AdminModel;
 import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.models.UsuarioModel;
 import jakarta.validation.Valid;
@@ -31,7 +32,11 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(loginRecordDTO.email(), loginRecordDTO.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var principal = auth.getPrincipal();
-        if (principal instanceof EmpreendedorModel empreendedorModel)
+        if (principal instanceof AdminModel adminModel){
+            var token = tokenService.genereteToken((AdminModel) auth.getPrincipal());
+            return ResponseEntity.status(HttpStatus.OK).body(new AuthenticatedResponseRecordDto(token,adminModel.getIdAdmin(),"admin"));
+        }
+        else if (principal instanceof EmpreendedorModel empreendedorModel)
         {
             var token = tokenService.genereteToken((EmpreendedorModel) auth.getPrincipal());
             return ResponseEntity.status(HttpStatus.OK).body(new AuthenticatedResponseRecordDto(token,empreendedorModel.getIdEmpreededor(),"empreendedores"));

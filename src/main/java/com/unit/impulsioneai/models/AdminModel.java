@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,38 +9,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tb_usuarios")
-public class UsuarioModel implements Serializable, UserDetails {
+@Table(name = "tb_admin")
+public class AdminModel implements Serializable, UserDetails {
+
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idUsuario;
+    private UUID idAdmin;
     private String nome;
+    private String password;
     private String email;
-    @JsonIgnoreProperties("senha")
-    private String senha;
-    private String cpf;
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date dataNascimento;
-
-    public UUID getIdUsuario() {
-        return idUsuario;
+    public UUID getIdAdmin() {
+        return idAdmin;
     }
 
     public String getNome() {
@@ -52,6 +39,10 @@ public class UsuarioModel implements Serializable, UserDetails {
         this.nome = nome;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -60,35 +51,19 @@ public class UsuarioModel implements Serializable, UserDetails {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
+        return List.of(new SimpleGrantedAuthority("ROLE_ADMIN") ,new SimpleGrantedAuthority("ROLE_EMPREENDEDOR"), new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 
     @Override
     public String getPassword() {
-        return senha;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return nome;
     }
 
     @Override

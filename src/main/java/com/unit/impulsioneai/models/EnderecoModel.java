@@ -1,5 +1,6 @@
 package com.unit.impulsioneai.models;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -14,7 +15,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_endereco")
 public class EnderecoModel implements Serializable{
-    private static final long  serialVersionUID = 1L;
+    @Serial
+    private static final long  serialVersionUID = 7L;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

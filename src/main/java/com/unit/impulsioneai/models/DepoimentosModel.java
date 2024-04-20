@@ -1,5 +1,6 @@
 package com.unit.impulsioneai.models;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -13,7 +14,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="tb_depoimentos")
 public class DepoimentosModel implements Serializable{
-    private static final long serialVersionUID = 1l;
+    @Serial
+    private static final long serialVersionUID = 9L;
 
 
     @Id
