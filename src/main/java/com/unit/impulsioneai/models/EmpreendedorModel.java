@@ -54,6 +54,15 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String instagram;
     private String nicho;
     private String modalidade;
+    private int numeroVisitas;
+
+    public int getNumeroVisitas() {
+        return numeroVisitas;
+    }
+
+    public void setNumeroVisitas(int numeroVisitas) {
+        this.numeroVisitas = numeroVisitas;
+    }
 
     public String getModalidade() {
         return modalidade;
