@@ -27,6 +27,11 @@ public class ProdutoModel implements Serializable{
     @JsonIgnoreProperties("produtos")
     private NichoModel nicho;
 
+    @ManyToOne
+    @JsonIgnoreProperties("produtos")
+    private EmpreendedorModel empreendedor;
+
+
     public UUID getIdProduto() {
         return idProduto;
     }

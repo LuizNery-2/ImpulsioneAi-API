@@ -1,5 +1,6 @@
 package com.unit.impulsioneai.controllers;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unit.impulsioneai.dtos.NichoRecordDto;
 import com.unit.impulsioneai.models.NichoModel;
 import com.unit.impulsioneai.repositories.NichoRepository;
@@ -28,7 +29,14 @@ public class NichoController {
     }
     @GetMapping("/nichos")
     public ResponseEntity<List<NichoModel>> getAllNichos(){
-        return ResponseEntity.status(HttpStatus.OK).body(nichoRepository.findAll());
+
+//        List<NichoModel> nichos = nichoRepository.findAll();
+//        for (NichoModel nicho : nichos) {
+//            nicho.setProdutos(null);
+//            nicho.setEmpreendimentos(null);
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(nichos);
+        return ResponseEntity.status(HttpStatus.OK).body( nichoRepository.findAll());
     }
 
     @GetMapping("/nichos/{id}")

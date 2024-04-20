@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.unit.impulsioneai.Services.EmpreendedorService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,15 @@ public class EmpreendedoresController {
     @Autowired
     EmpreendedoresRepository empreendedoresRepository;
 
+    @Autowired
+    EmpreendedorService empreendedorService;
+
     @PostMapping("/empreendedores")
     public ResponseEntity<EmpreendedorModel> saveEmpreendedor(@RequestBody @Valid EmpreendedoresRecordDto empreendedoresRecordDto)
     {
         var empreendedorModel = new EmpreendedorModel();
         BeanUtils.copyProperties(empreendedoresRecordDto,empreendedorModel);
+        empreendedorModel = empreendedorService.associateEmpreendedorNicho(empreendedorModel, empreendedoresRecordDto.idNicho());
         String encryptedPassword = new BCryptPasswordEncoder().encode(empreendedoresRecordDto.senha());
         empreendedorModel.setSenha(encryptedPassword);
         return ResponseEntity.status(HttpStatus.CREATED).body(empreendedoresRepository.save(empreendedorModel));

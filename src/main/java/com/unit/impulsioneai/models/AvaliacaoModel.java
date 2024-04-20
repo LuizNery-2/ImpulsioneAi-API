@@ -1,6 +1,5 @@
 package com.unit.impulsioneai.models;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -10,12 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name="tb_depoimentos")
-public class DepoimentosModel implements Serializable{
-    @Serial
-    private static final long serialVersionUID = 9L;
+@Table(name="tb_avaliacoes")
+public class AvaliacaoModel implements Serializable{
+    private static final long serialVersionUID = 1l;
 
 
     @Id
@@ -23,7 +20,7 @@ public class DepoimentosModel implements Serializable{
     private int id;
 
     private UUID idEmpreededor;
-    private String depoimento;
+    private String avaliacao;
     private String nomeUsuario;
     private int qdtEstrelas;
 
@@ -41,11 +38,11 @@ public class DepoimentosModel implements Serializable{
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
-    public String getDepoimento() {
-        return depoimento;
+    public String getAvaliacao() {
+        return avaliacao;
     }
-    public void setDepoimento(String depoimento) {
-        this.depoimento = depoimento;
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
     }
     public UUID getIdEmpreededor() {
         return idEmpreededor;

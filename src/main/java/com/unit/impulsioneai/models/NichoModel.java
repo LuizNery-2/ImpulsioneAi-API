@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="tb_nichos")
@@ -20,9 +21,14 @@ public class NichoModel implements Serializable {
 
     private String nicho;
 
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} , orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} , orphanRemoval = true, mappedBy = "nicho")
     @JsonIgnoreProperties("nicho")
-    private HashSet<ProdutoModel> produtos = new HashSet<>();
+    private Set<ProdutoModel> produtos = new HashSet<>();
+
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} , orphanRemoval = true, mappedBy = "nicho")
+    @JsonIgnoreProperties("nicho")
+    private Set<EmpreendedorModel> empreendimentos = new HashSet<>();
+
 
     public int getId() {
         return idNicho;
@@ -36,11 +42,19 @@ public class NichoModel implements Serializable {
         this.nicho = nichos;
     }
 
-    public HashSet<ProdutoModel> getProdutos() {
+    public Set<ProdutoModel> getProdutos() {
         return produtos;
     }
 
     public void setProdutos(HashSet<ProdutoModel> produtos) {
         this.produtos = produtos;
+    }
+
+    public Set<EmpreendedorModel> getEmpreendimentos() {
+        return empreendimentos;
+    }
+
+    public void setEmpreendimentos(HashSet<EmpreendedorModel> empreendimentos) {
+        this.empreendimentos = empreendimentos;
     }
 }

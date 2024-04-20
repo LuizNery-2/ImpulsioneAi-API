@@ -48,6 +48,14 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE,"/endereco").hasAnyRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(HttpMethod.GET,"/admin").hasRole("ADMIN")
+//=======
+                       .requestMatchers(HttpMethod.GET, "/verificaUsuarios").permitAll()
+                       .requestMatchers(HttpMethod.PUT, "/editarSenha").permitAll()
+                      .requestMatchers(HttpMethod.GET, "/editarSenha").permitAll()
+                       .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
+                       .requestMatchers(HttpMethod.POST, "/cartao").permitAll()
+                      .requestMatchers(HttpMethod.GET, "/cartao").permitAll()
+
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

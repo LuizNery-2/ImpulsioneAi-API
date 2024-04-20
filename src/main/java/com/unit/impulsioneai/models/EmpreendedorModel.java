@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -55,8 +52,25 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private int planoAssinatura;
     private String facebook;
     private String instagram;
-    private String nicho;
+
+    @ManyToOne
+    @JsonIgnoreProperties({"empreendimentos","produtos"})
+    private NichoModel nicho;
+
+    @OneToMany(mappedBy = "empreendedor")
+    @JsonIgnoreProperties("empreendedor")
+    private Set<ProdutoModel> produtos = new HashSet<>();
+
     private String modalidade;
+    private int numeroVisitas;
+
+    public int getNumeroVisitas() {
+        return numeroVisitas;
+    }
+
+    public void setNumeroVisitas(int numeroVisitas) {
+        this.numeroVisitas = numeroVisitas;
+    }
 
     public String getModalidade() {
         return modalidade;
@@ -82,12 +96,20 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         this.instagram = instagram;
     }
 
-    public String getNicho() {
+    public NichoModel getNicho() {
         return nicho;
     }
 
-    public void setNicho(String nicho) {
+    public void setNicho(NichoModel nicho) {
         this.nicho = nicho;
+    }
+
+    public Set<ProdutoModel> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(HashSet<ProdutoModel> produtos) {
+        this.produtos = produtos;
     }
 
     public String getEmail() {
