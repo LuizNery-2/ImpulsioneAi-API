@@ -19,7 +19,8 @@ public class ProdutoService {
     public void cadastrarEmpreendedorProdutos (ProdutoModel produtoModel, EmpreendedorModel empreendedorModel){
 
         empreendedorModel.getProdutos().add(produtoModel);
-        produtoModel.setNicho(empreendedorModel.getNicho());
+        produtoModel.setEmpreendedor(empreendedorModel);
+        produtoModel.setNicho(produtoModel.getEmpreendedor().getNicho());
         empreendedoresRepository.save(empreendedorModel);
         produtoRepository.save(produtoModel);
 

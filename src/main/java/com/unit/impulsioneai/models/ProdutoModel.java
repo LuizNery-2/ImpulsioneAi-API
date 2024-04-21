@@ -67,4 +67,12 @@ public class ProdutoModel implements Serializable{
     public void setNicho(NichoModel nicho) {
         this.nicho = nicho;
     }
+
+    public EmpreendedorModel getEmpreendedor() {
+        return empreendedor;
+    }
+
+    public void setEmpreendedor(EmpreendedorModel empreendedor) {
+        this.empreendedor = empreendedor;
+    }
 }

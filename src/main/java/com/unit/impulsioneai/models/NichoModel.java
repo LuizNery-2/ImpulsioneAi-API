@@ -26,7 +26,7 @@ public class NichoModel implements Serializable {
     private Set<ProdutoModel> produtos = new HashSet<>();
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} , orphanRemoval = true, mappedBy = "nicho")
-    @JsonIgnoreProperties("nicho")
+    @JsonIgnoreProperties({"nicho","produtos"})
     private Set<EmpreendedorModel> empreendimentos = new HashSet<>();
 
 
