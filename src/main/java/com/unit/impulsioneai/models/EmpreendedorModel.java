@@ -26,6 +26,9 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     @Column(columnDefinition = "TEXT")
     private String biografia;
 
+    @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    private EnderecoModel enderecoModel;
+
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
