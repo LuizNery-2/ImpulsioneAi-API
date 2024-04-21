@@ -21,9 +21,10 @@ public class ProdutoController {
     ProdutoRepository produtoRepository;
 
 
-    @PreAuthorize("hasRole('EMPREENDEDOR')")
-    @PostMapping("/produtos")
-    public ResponseEntity<ProdutoModel> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto){
+
+    @PostMapping("{idEmpreendedor}/produtos")
+    public ResponseEntity<ProdutoModel> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto, @PathVariable(value = "idEmpreendedor") UUID idEmpreendedor){
+
         var produtoModel = new ProdutoModel();
         BeanUtils.copyProperties(produtoRecordDto, produtoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produtoModel));
