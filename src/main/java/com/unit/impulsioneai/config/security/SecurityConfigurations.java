@@ -43,6 +43,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cartao").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cartao").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/filtrarProdutos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/filtrarEmpreendedores").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
