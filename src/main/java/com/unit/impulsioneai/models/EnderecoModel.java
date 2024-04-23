@@ -15,35 +15,36 @@ public class EnderecoModel implements Serializable{
     private static final long  serialVersionUID = 7L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private UUID idEndereco;
+    @GeneratedValue(strategy=GenerationType.UUID)
+    private String idEndereco;
 
     @OneToOne
     @JoinColumn(name = "empreendedor_id")
     @JsonIgnoreProperties("endereco")
-    private EmpreendedorModel empreendedorModel;
+    private EmpreendedorModel empreendedor;
     private String uf;
     private String  cidade;
     private String bairro;
-    private String logadouro;
+    private String logradouro;
     private String numero;
 
 
-    public EmpreendedorModel getEmpreendedorModel() {
-        return empreendedorModel;
+    public EmpreendedorModel getEmpreendedor() {
+        return empreendedor;
     }
 
-    public void setEmpreendedorModel(EmpreendedorModel empreendedorModel) {
-        this.empreendedorModel = empreendedorModel;
+    public void setEmpreendedor(EmpreendedorModel empreendedorModel) {
+        this.empreendedor = empreendedorModel;
     }
 
-    public String getLogadouro() {
-        return logadouro;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setLogadouro(String logadouro) {
-        this.logadouro = logadouro;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
+
 
     public String getUf() {
         return uf;

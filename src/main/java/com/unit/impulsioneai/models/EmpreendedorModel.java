@@ -27,7 +27,8 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String biografia;
 
     @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
-    private EnderecoModel enderecoModel;
+    @JsonIgnoreProperties("empreendedor")
+    private EnderecoModel endereco;
 
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
@@ -60,7 +61,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     @JsonIgnoreProperties({"empreendimentos","produtos"})
     private NichoModel nicho;
 
-    @OneToMany(mappedBy = "empreendedor")
+    @OneToMany(mappedBy = "empreendedor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("empreendedor")
     private Set<ProdutoModel> produtos = new HashSet<>();
 
@@ -205,6 +206,14 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     public void setVerificado(boolean verificado) {
         this.verificado = verificado;
+    }
+
+    public EnderecoModel getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoModel endereco) {
+        this.endereco = endereco;
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public record EmpreendedoresRecordDto( int idNicho,
         String nomeEmpreendimento,
+        EnderecoRecordDto endereco,
         String biografia,
         Date dataNascimento, 
         String telefone, String site, String nomeCompleto, String cpf, String mei, String senha
