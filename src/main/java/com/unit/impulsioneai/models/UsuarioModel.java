@@ -20,6 +20,8 @@ public class UsuarioModel implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idUsuario;
@@ -28,6 +30,8 @@ public class UsuarioModel implements Serializable, UserDetails {
     @JsonIgnoreProperties("senha")
     private String senha;
     private String cpf;
+
+    private EmpreendedorModel empreendoresFavoritos;
 
     public String getCpf() {
         return cpf;

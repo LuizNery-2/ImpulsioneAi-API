@@ -2,7 +2,10 @@ package com.unit.impulsioneai.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import com.unit.impulsioneai.models.EmpreendedorModel;
+import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,11 +32,21 @@ public class DepoimentosController {
     @Autowired
     DepoimentosRepository depoimentosRepository;
 
+    @Autowired
+    EmpreendedoresRepository empreendedoresRepository;
+
     @PostMapping("/depoimento")
-    public ResponseEntity<DepoimentosModel> saveDepoimento (@RequestBody @Valid DepoimentosRecordDto depoimentosRecordDto){
-        var depoimentosModel = new DepoimentosModel();
-        BeanUtils.copyProperties(depoimentosRecordDto,depoimentosModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(depoimentosRepository.save(depoimentosModel));
+    public ResponseEntity<Object> saveDepoimento (@RequestBody @Valid DepoimentosRecordDto depoimentosRecordDto){
+        var depoimentoModel = new DepoimentosModel();
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(depoimentosRecordDto.idEmpreendedor());
+        if (empreendedorO.isEmpty())
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
+        }
+        var empreendedorModel = empreendedorO.get();
+        BeanUtils.copyProperties(depoimentosRecordDto,depoimentoModel);
+        depoimentoModel.setEmpreendedor(empreendedorModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(depoimentosRepository.save(depoimentoModel));
     }
 
     @GetMapping("/depoimento")
@@ -42,7 +55,7 @@ public class DepoimentosController {
     }
 
     @GetMapping("/depoimento/{id}")
-    public ResponseEntity<Object> getDepoimentos(@PathVariable(value = "id") int id){
+    public ResponseEntity<Object> getDepoimentos(@PathVariable(value = "id") String id){
         Optional<DepoimentosModel> depoimentoO = depoimentosRepository.findById(id);
         if (depoimentoO.isEmpty()){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Depoimento não encontrado");
@@ -51,7 +64,7 @@ public class DepoimentosController {
     }
 
     @PutMapping("/depoimento/{id}")
-    public ResponseEntity<Object> updateDepoimento(@PathVariable(value = "id") int id, @RequestBody @Valid DepoimentosRecordDto  depoimentosRecordDto)
+    public ResponseEntity<Object> updateDepoimento(@PathVariable(value = "id") String id, @RequestBody @Valid DepoimentosRecordDto  depoimentosRecordDto)
     {
         Optional<DepoimentosModel> depoimentoO = depoimentosRepository.findById(id);
         if (depoimentoO.isEmpty()){
@@ -64,12 +77,20 @@ public class DepoimentosController {
     }
 
     @DeleteMapping("/depoimento/{id}")
-    public ResponseEntity<Object> deleteDepoimento(@PathVariable(value = "id") int id){
+    public ResponseEntity<Object> deleteDepoimento(@PathVariable(value = "id") String id){
         Optional<DepoimentosModel> depoimentoO = depoimentosRepository.findById(id);
+
         if (depoimentoO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Depoimento não encontrado");
         }
         var DepoimentosModel = depoimentoO.get();
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(DepoimentosModel.getEmpreendedor().getIdEmpreededor());
+        if (empreendedorO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
+        }
+        var empreendedor = empreendedorO.get();
+        empreendedor.setDepoimento(null);
+        empreendedoresRepository.save(empreendedor);
         depoimentosRepository.delete(DepoimentosModel);
         return ResponseEntity.status(HttpStatus.OK).body("Depoimento deletado com sucesso");
 

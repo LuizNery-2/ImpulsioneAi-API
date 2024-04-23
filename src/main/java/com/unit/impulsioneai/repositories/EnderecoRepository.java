@@ -9,6 +9,6 @@ import com.unit.impulsioneai.models.EnderecoModel;
 
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<EnderecoModel,UUID>{
+public interface EnderecoRepository extends JpaRepository<EnderecoModel,String>{
     
 }

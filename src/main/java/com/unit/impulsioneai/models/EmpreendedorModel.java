@@ -25,10 +25,15 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     @Column(columnDefinition = "TEXT")
     private String biografia;
+    @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("empreendedor")
+    private  DepoimentosModel depoimento;
 
     @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("empreendedor")
     private EnderecoModel endereco;
+
+    int numeroFavoritos;
 
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
@@ -250,5 +255,17 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return verificado;
+    }
+
+    public DepoimentosModel getDepoimento() {
+        return depoimento;
+    }
+
+    public void setDepoimento(DepoimentosModel depoimento) {
+        this.depoimento = depoimento;
+    }
+
+    public void setProdutos(Set<ProdutoModel> produtos) {
+        this.produtos = produtos;
     }
 }
