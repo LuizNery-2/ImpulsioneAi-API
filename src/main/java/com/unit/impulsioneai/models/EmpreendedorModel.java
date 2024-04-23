@@ -33,7 +33,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     @JsonIgnoreProperties("empreendedor")
     private EnderecoModel endereco;
 
-    int numeroFavoritos;
+    private int numeroFavoritos;
 
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
@@ -267,5 +267,13 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     public void setProdutos(Set<ProdutoModel> produtos) {
         this.produtos = produtos;
+    }
+
+    public int getNumeroFavoritos() {
+        return numeroFavoritos;
+    }
+
+    public void setNumeroFavoritos(int numeroFavoritos) {
+        this.numeroFavoritos = numeroFavoritos;
     }
 }

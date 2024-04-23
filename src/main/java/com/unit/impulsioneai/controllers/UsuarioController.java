@@ -1,8 +1,11 @@
 package com.unit.impulsioneai.controllers;
 
 
+import com.unit.impulsioneai.Services.EmpreendedorService;
 import com.unit.impulsioneai.dtos.UsuarioRecordDto;
+import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.models.UsuarioModel;
+import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import com.unit.impulsioneai.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +26,12 @@ import java.util.UUID;
 public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    EmpreendedoresRepository empreendedoresRepository;
+
+    @Autowired
+    EmpreendedorService empreendedorService;
 
     @PostMapping("/usuarios")
     public ResponseEntity<UsuarioModel> saveUsuario(@RequestBody @Valid UsuarioRecordDto usuarioRecordDto)
@@ -109,6 +118,43 @@ public class UsuarioController {
         usuarioModel = usuarioRepository.save(usuarioModel);
 
         return ResponseEntity.status(HttpStatus.OK).body(usuarioModel);
+    }
+
+    @PostMapping("/usuario/{idUsuario}/{idEmpreendedor}")
+    public ResponseEntity<Object> favoritarEmpreendedor(@PathVariable(value = "idUsuario") UUID idUsuario,@PathVariable(value = "idEmpreendedor") UUID idEmpreendedor){
+        Optional<UsuarioModel> usuarioO = usuarioRepository.findById(idUsuario);
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(idEmpreendedor);
+        if (usuarioO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+        }
+        if (empreendedorO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
+        }
+        var usuarioModel = usuarioO.get();
+        var empreendedorModel = empreendedorO.get();
+
+        empreendedorService.favoritarEmpreendedor(usuarioModel,empreendedorModel);
+        return ResponseEntity.status(HttpStatus.OK).body("Empreendedor adicionado aos favoritos");
+
+
+    }
+    @DeleteMapping("/usuario/{idUsuario}/{idEmpreendedor}")
+    public ResponseEntity<Object> desfavoritarEmpreendedor(@PathVariable(value = "idUsuario") UUID idUsuario,@PathVariable(value = "idEmpreendedor") UUID idEmpreendedor){
+        Optional<UsuarioModel> usuarioO = usuarioRepository.findById(idUsuario);
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(idEmpreendedor);
+        if (usuarioO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+        }
+        if (empreendedorO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
+        }
+        var usuarioModel = usuarioO.get();
+        var empreendedorModel = empreendedorO.get();
+
+        empreendedorService.desfavoritarEmpreendedor(usuarioModel,empreendedorModel);
+        return ResponseEntity.status(HttpStatus.OK).body("Empreendedor removido dos favoritos");
+
+
     }
 
 

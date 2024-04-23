@@ -111,24 +111,7 @@ public class EmpreendedoresController {
         return ResponseEntity.status(HttpStatus.OK).body("Empreendedor deletado com sucesso");
     }
 
-    @PostMapping("/empreendedores/endereco")
-    public ResponseEntity<Object> associateEmpreendedoresEndereco(@RequestBody UUID idEmpreendedor, UUID idEndereco){
-        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(idEmpreendedor);
-        Optional<EnderecoModel> enderecoO = enderecoRepository.findById(idEndereco);
-        if (empreendedorO.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
-        }
-        else if (enderecoO.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereço não encontrado");
-        }
-        var empreendedorModel = empreendedorO.get();
-        var enderecoModel = enderecoO.get();
-        empreendedorModel.setEndereco(enderecoModel);
-        enderecoModel.setEmpreendedor(empreendedorModel);
-
-        enderecoRepository.save(enderecoModel);
-        return ResponseEntity.status(HttpStatus.OK).body(empreendedoresRepository.save(empreendedorModel));
 
 
-    }
+
 }
