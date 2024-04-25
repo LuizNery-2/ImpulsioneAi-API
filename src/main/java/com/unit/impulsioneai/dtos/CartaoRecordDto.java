@@ -1,6 +1,8 @@
 package com.unit.impulsioneai.dtos;
 
-public record CartaoRecordDto(String numeroCartao, String nomeCartao, String dataValidade, String cvv, String bandeira) {
+import java.util.UUID;
+
+public record CartaoRecordDto(UUID idEmpreendedor, String numeroCartao, String nomeCartao, String dataValidade, String cvv, String bandeira) {
 
     public String getNumeroCartao() {
         return numeroCartao;

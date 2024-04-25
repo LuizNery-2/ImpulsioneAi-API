@@ -3,6 +3,7 @@ package com.unit.impulsioneai.models;
 import java.io.Serializable;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,11 +18,13 @@ public class AvaliacaoModel implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "empreendedor_id")
+    @JsonIgnoreProperties("avaliacoes")
     private EmpreendedorModel empreendedor;
     private String avaliacao;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonIgnoreProperties("avaliacoes")
     private UsuarioModel usuario;
     private int qtdEstrelas;
 
@@ -41,5 +44,19 @@ public class AvaliacaoModel implements Serializable{
         this.avaliacao = avaliacao;
     }
 
-    
+    public EmpreendedorModel getEmpreendedor() {
+        return empreendedor;
+    }
+
+    public void setEmpreendedor(EmpreendedorModel empreendedor) {
+        this.empreendedor = empreendedor;
+    }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
 }

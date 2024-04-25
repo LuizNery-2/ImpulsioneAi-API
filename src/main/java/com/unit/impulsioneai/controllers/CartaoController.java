@@ -1,5 +1,8 @@
 package com.unit.impulsioneai.controllers;
 
+import com.unit.impulsioneai.models.EmpreendedorModel;
+import com.unit.impulsioneai.models.UsuarioModel;
+import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,26 +19,38 @@ import com.unit.impulsioneai.repositories.CartaoRepository;
 
 import jakarta.validation.Valid;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin (origins = "*")
 public class CartaoController {
     @Autowired
     CartaoRepository cartaoRepository;
+    @Autowired
+    EmpreendedoresRepository empreendedoresRepository;
 
     
     @PostMapping("/cartao")
-    public ResponseEntity<CartaoModel> saveCartao(@RequestBody @Valid CartaoRecordDto CartaoRecordDto) {
-        var CartaoModel = new CartaoModel();
-        BeanUtils.copyProperties(CartaoRecordDto, CartaoModel);
-        
+    public ResponseEntity<CartaoModel> saveCartao(@RequestBody @Valid CartaoRecordDto cartaoRecordDto) {
+        var cartaoModel = new CartaoModel();
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(cartaoRecordDto.idEmpreendedor());
+        if (empreendedorO.isEmpty()){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
+        }
+        var empreendedorModel = empreendedorO.get();
+        BeanUtils.copyProperties(cartaoRecordDto, cartaoModel);
+        ;
+
         // Criptografando o número do cartão
-        String encryptedNumeroCartao = new BCryptPasswordEncoder().encode(CartaoRecordDto.getNumeroCartao());
-        CartaoModel.setNumeroCartao(encryptedNumeroCartao);
+        String encryptedNumeroCartao = new BCryptPasswordEncoder().encode(cartaoRecordDto.getNumeroCartao());
+        cartaoModel.setNumeroCartao(encryptedNumeroCartao);
         
         // Criptografando o CVV do cartão
-        String encryptedCvv = new BCryptPasswordEncoder().encode(CartaoRecordDto.getCvv());
-        CartaoModel.setCvv(encryptedCvv);
+        String encryptedCvv = new BCryptPasswordEncoder().encode(cartaoRecordDto.getCvv());
+        cartaoModel.setCvv(encryptedCvv);
+        cartaoRepository.save(cartaoModel);
+        cartaoModel.setEmpreendedor(empreendedorModel);
         
-        return ResponseEntity.status(HttpStatus.CREATED).body(cartaoRepository.save(CartaoModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartaoRepository.save(cartaoModel));
     }
 }

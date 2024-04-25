@@ -38,17 +38,6 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
-     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    // private Date tempoAtuacao;
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
     private String telefone;
     private String site;
     private String nomeCompleto;
@@ -62,6 +51,10 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String facebook;
     private String instagram;
 
+    @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("empreendedor")
+    private CartaoModel cartao;
+
     @ManyToOne
     @JsonIgnoreProperties({"empreendimentos","produtos"})
     private NichoModel nicho;
@@ -71,6 +64,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private Set<ProdutoModel> produtos = new HashSet<>();
 
     @OneToMany(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("empreendedor")
     private List<AvaliacaoModel> avaliacoes = new ArrayList<>();
     private String modalidade;
     private int numeroVisitas;
@@ -286,4 +280,16 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     public void setAvaliacoes(List<AvaliacaoModel> avaliacoes) {
         this.avaliacoes = avaliacoes;
     }
+
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    // private Date tempoAtuacao;
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
 }

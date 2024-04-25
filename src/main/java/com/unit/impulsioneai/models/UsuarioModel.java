@@ -37,6 +37,7 @@ public class UsuarioModel implements Serializable, UserDetails {
     private List<EmpreendedorModel> empreendedoresFavoritos = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("usuario")
     private List<AvaliacaoModel> avaliacoes = new ArrayList<>();
 
     public String getCpf() {
