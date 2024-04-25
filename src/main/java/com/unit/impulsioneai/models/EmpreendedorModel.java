@@ -70,6 +70,8 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     @JsonIgnoreProperties("empreendedor")
     private Set<ProdutoModel> produtos = new HashSet<>();
 
+    @OneToMany(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    private List<AvaliacaoModel> avaliacoes = new ArrayList<>();
     private String modalidade;
     private int numeroVisitas;
 
@@ -275,5 +277,13 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     public void setNumeroFavoritos(int numeroFavoritos) {
         this.numeroFavoritos = numeroFavoritos;
+    }
+
+    public List<AvaliacaoModel> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<AvaliacaoModel> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 }

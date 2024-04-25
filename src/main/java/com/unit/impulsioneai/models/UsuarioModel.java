@@ -36,6 +36,9 @@ public class UsuarioModel implements Serializable, UserDetails {
     )
     private List<EmpreendedorModel> empreendedoresFavoritos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<AvaliacaoModel> avaliacoes = new ArrayList<>();
+
     public String getCpf() {
         return cpf;
     }
@@ -124,5 +127,9 @@ public class UsuarioModel implements Serializable, UserDetails {
 
     public void setEmpreendedoresFavoritos(List<EmpreendedorModel> empreendedoresFavoritos) {
         this.empreendedoresFavoritos = empreendedoresFavoritos;
+    }
+
+    public List<AvaliacaoModel> getAvaliacoes() {
+        return avaliacoes;
     }
 }
