@@ -1,5 +1,6 @@
 package com.unit.impulsioneai.models;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -15,7 +16,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name =  "tb_plano_assinatura")
 public class PlanoAssinaturaModel implements Serializable{
-    private static final long serialVersionUID = 3l;
+    @Serial
+    private static final long serialVersionUID = 4L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

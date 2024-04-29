@@ -1,7 +1,9 @@
 package com.unit.impulsioneai.components;
 
 import com.unit.impulsioneai.Services.TokenService;
+import com.unit.impulsioneai.repositories.AdminRepository;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
+import com.unit.impulsioneai.repositories.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +24,11 @@ public class SecurityFilter extends OncePerRequestFilter {
      private TokenService tokenService;
     @Autowired
      private EmpreendedoresRepository empreendedoresRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
@@ -29,7 +36,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         {
             var login = tokenService.validateToken(token);
             UserDetails user = empreendedoresRepository.findByEmail(login);
+            if (user == null){
+             user = usuarioRepository.findByEmail(login);
+             if (user == null){
 
+                 user = adminRepository.findByEmail(login);
+             }
+            }
             var authenication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenication);
         }

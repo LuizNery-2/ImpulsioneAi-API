@@ -7,17 +7,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
 @Table(name = "tb_empreendedor")
+@JsonIgnoreProperties({"senha","password"})
 public class EmpreendedorModel implements Serializable, UserDetails {
 
+    @Serial
     private static final long serialVersionUID = 2L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +25,15 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     @Column(columnDefinition = "TEXT")
     private String biografia;
+    @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("empreendedor")
+    private  DepoimentosModel depoimento;
+
+    @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("empreendedor")
+    private EnderecoModel endereco;
+
+    private int numeroFavoritos;
 
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataNascimento;
@@ -45,14 +54,22 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String nomeCompleto;
     private String cpf;
     private String mei;
-    @JsonIgnoreProperties("senha")
+    private boolean verificado = false;
     private String senha;
     private String nomeEmpreendimento;
     private String email;
     private int planoAssinatura;
     private String facebook;
     private String instagram;
-    private String nicho;
+
+    @ManyToOne
+    @JsonIgnoreProperties({"empreendimentos","produtos"})
+    private NichoModel nicho;
+
+    @OneToMany(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("empreendedor")
+    private Set<ProdutoModel> produtos = new HashSet<>();
+
     private String modalidade;
     private int numeroVisitas;
 
@@ -88,12 +105,20 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         this.instagram = instagram;
     }
 
-    public String getNicho() {
+    public NichoModel getNicho() {
         return nicho;
     }
 
-    public void setNicho(String nicho) {
+    public void setNicho(NichoModel nicho) {
         this.nicho = nicho;
+    }
+
+    public Set<ProdutoModel> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(HashSet<ProdutoModel> produtos) {
+        this.produtos = produtos;
     }
 
     public String getEmail() {
@@ -180,12 +205,29 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         this.site = site;
     }
 
+    public boolean isVerificado() {
+        return verificado;
+    }
+
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
+    }
+
+    public EnderecoModel getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoModel endereco) {
+        this.endereco = endereco;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_EMPREENDEDOR"));
     }
 
     @Override
+    @JsonIgnoreProperties("password")
     public String getPassword() {
         return senha;
     }
@@ -212,6 +254,26 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return verificado;
+    }
+
+    public DepoimentosModel getDepoimento() {
+        return depoimento;
+    }
+
+    public void setDepoimento(DepoimentosModel depoimento) {
+        this.depoimento = depoimento;
+    }
+
+    public void setProdutos(Set<ProdutoModel> produtos) {
+        this.produtos = produtos;
+    }
+
+    public int getNumeroFavoritos() {
+        return numeroFavoritos;
+    }
+
+    public void setNumeroFavoritos(int numeroFavoritos) {
+        this.numeroFavoritos = numeroFavoritos;
     }
 }

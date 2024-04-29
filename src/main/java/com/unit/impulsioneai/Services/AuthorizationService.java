@@ -2,6 +2,7 @@ package com.unit.impulsioneai.Services;
 
 
 import com.unit.impulsioneai.models.EmpreendedorModel;
+import com.unit.impulsioneai.repositories.AdminRepository;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import com.unit.impulsioneai.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,22 @@ public class AuthorizationService implements UserDetailsService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    AdminRepository adminRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails empreendedor = empreendedoresRepository.findByEmail(username);
         UserDetails usuario = usuarioRepository.findByEmail(username);
-        if (empreendedor != null) {
+        UserDetails admin = adminRepository.findByEmail(username);
+        if (admin != null){
+            return admin;
+        }
+        else if (empreendedor != null) {
             return empreendedor;
-        } else if (usuario != null) {
+        }
+        else if (usuario != null) {
             return usuario;
         }
         throw new UsernameNotFoundException("Usuario náo encontrado");

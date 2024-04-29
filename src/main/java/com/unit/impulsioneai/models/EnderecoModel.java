@@ -1,40 +1,51 @@
 package com.unit.impulsioneai.models;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "tb_endereco")
 public class EnderecoModel implements Serializable{
-    private static final long  serialVersionUID = 1L;
+    @Serial
+    private static final long  serialVersionUID = 7L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private UUID idEndereco;
+    @GeneratedValue(strategy=GenerationType.UUID)
+    private String idEndereco;
 
-    private String cpfEmpreendedor;
+    @OneToOne
+    @JoinColumn(name = "empreendedor_id")
+    @JsonIgnoreProperties("endereco")
+    private EmpreendedorModel empreendedor;
     private String uf;
     private String  cidade;
     private String bairro;
-    private String logadouro;
+    private String logradouro;
     private String numero;
 
 
+    public EmpreendedorModel getEmpreendedor() {
+        return empreendedor;
+    }
 
-    public String getCpfEmpreendedor() {
-        return cpfEmpreendedor;
+    public void setEmpreendedor(EmpreendedorModel empreendedorModel) {
+        this.empreendedor = empreendedorModel;
     }
-    public void setCpfEmpreendedor(String cpfEmpreendedor) {
-        this.cpfEmpreendedor = cpfEmpreendedor;
+
+    public String getLogradouro() {
+        return logradouro;
     }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+
     public String getUf() {
         return uf;
     }
@@ -52,12 +63,6 @@ public class EnderecoModel implements Serializable{
     }
     public void setBairro(String bairro) {
         this.bairro = bairro;
-    }
-    public String getlogadouro() {
-        return logadouro;
-    }
-    public void setlogadouro(String logadouro) {
-        this.logadouro = logadouro;
     }
     public String getNumero() {
         return numero;

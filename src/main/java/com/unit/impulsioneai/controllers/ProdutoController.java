@@ -1,7 +1,10 @@
 package com.unit.impulsioneai.controllers;
 
+import com.unit.impulsioneai.Services.ProdutoService;
 import com.unit.impulsioneai.dtos.ProdutoRecordDto;
+import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.models.ProdutoModel;
+import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import com.unit.impulsioneai.repositories.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +24,27 @@ public class ProdutoController {
     @Autowired
     ProdutoRepository produtoRepository;
 
+    @Autowired
+    EmpreendedoresRepository empreendedoresRepository;
 
-    @PreAuthorize("hasRole('EMPREENDEDOR')")
-    @PostMapping("/produtos")
-    public ResponseEntity<ProdutoModel> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto){
+    @Autowired
+    ProdutoService produtoService;
+
+
+
+    @PostMapping("{idEmpreendedor}/produtos")
+    public ResponseEntity<Object> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto, @PathVariable(value = "idEmpreendedor") UUID idEmpreendedor){
+
         var produtoModel = new ProdutoModel();
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(idEmpreendedor);
+        if (empreendedorO.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendeendedor não encontrado");
+        }
+        var empreendedorModel = empreendedorO.get();
         BeanUtils.copyProperties(produtoRecordDto, produtoModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produtoModel));
+        produtoRepository.save(produtoModel);
+        produtoService.cadastrarEmpreendedorProdutos(produtoModel,empreendedorModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoModel);
     }
     @PreAuthorize("permitAll()")
     @GetMapping("/produtos")
@@ -42,17 +60,6 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
         }
         return ResponseEntity.status(HttpStatus.OK).body(produtoO.get());
-
-    }
-    @GetMapping("buscar/produtos/{nomeProduto}")
-    public ResponseEntity<Object> getProdutosByName(@PathVariable(value = "nomeProduto")String nomeProduto){
-
-            var produtos = produtoRepository.findByNomeContainingIgnoreCase(nomeProduto);
-            if (produtos.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
-             }
-            return ResponseEntity.status(HttpStatus.OK).body(produtos);
-
 
     }
 

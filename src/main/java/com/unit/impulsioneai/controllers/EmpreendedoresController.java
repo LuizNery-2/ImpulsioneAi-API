@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.unit.impulsioneai.Services.EmpreendedorService;
+import com.unit.impulsioneai.models.EnderecoModel;
+import com.unit.impulsioneai.repositories.EnderecoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,15 +34,43 @@ import jakarta.validation.Valid;
 public class EmpreendedoresController {
     @Autowired
     EmpreendedoresRepository empreendedoresRepository;
+    @Autowired
+    EnderecoRepository enderecoRepository;
+
+    @Autowired
+    EmpreendedorService empreendedorService;
+
 
     @PostMapping("/empreendedores")
-    public ResponseEntity<EmpreendedorModel> saveEmpreendedor(@RequestBody @Valid EmpreendedoresRecordDto empreendedoresRecordDto)
+    public ResponseEntity<EmpreendedorModel> saveEmpreendedor(@RequestBody @Valid EmpreendedoresRecordDto empreendedor)
     {
-        var empreendedorModel = new EmpreendedorModel();
-        BeanUtils.copyProperties(empreendedoresRecordDto,empreendedorModel);
-        String encryptedPassword = new BCryptPasswordEncoder().encode(empreendedoresRecordDto.senha());
-        empreendedorModel.setSenha(encryptedPassword);
-        return ResponseEntity.status(HttpStatus.CREATED).body(empreendedoresRepository.save(empreendedorModel));
+
+        Logger logger = LoggerFactory.getLogger(getClass());
+        try {
+            logger.info("Recebida solicitação para salvar empreendedor: {}", empreendedor);
+
+            var empreendedorModel = new EmpreendedorModel();
+            var enderecoModel = new EnderecoModel();
+            BeanUtils.copyProperties(empreendedor,empreendedorModel);
+            BeanUtils.copyProperties(empreendedor.endereco(), enderecoModel);
+            empreendedorModel = empreendedorService.associateEmpreendedorNicho(empreendedorModel, empreendedor.idNicho());
+            String encryptedPassword = new BCryptPasswordEncoder().encode(empreendedor.senha());
+
+            enderecoModel.setEmpreendedor(empreendedorModel);
+            empreendedorModel.setEndereco(enderecoModel);
+            empreendedorModel.setSenha(encryptedPassword);
+            empreendedoresRepository.save(empreendedorModel);
+            enderecoRepository.save(enderecoModel);
+
+
+            logger.info("Empreendedor salvo com sucesso: {}", empreendedorModel);
+            return ResponseEntity.status(HttpStatus.CREATED).body(empreendedoresRepository.save(empreendedorModel));
+        } catch (Exception e) {
+            logger.error("Erro ao salvar empreendedor: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+
     }
 
 
@@ -77,4 +110,8 @@ public class EmpreendedoresController {
        empreendedoresRepository.delete(empreendedorModel);
         return ResponseEntity.status(HttpStatus.OK).body("Empreendedor deletado com sucesso");
     }
+
+
+
+
 }

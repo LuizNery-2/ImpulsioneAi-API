@@ -43,7 +43,7 @@ public class EnderecoController {
     }
 
     @GetMapping("/endereco/{id}")
-    public ResponseEntity<Object> getEndereco(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> getEndereco(@PathVariable(value = "id")String  id){
         Optional<EnderecoModel> enderecoO = enderecoRepository.findById(id);
         if (enderecoO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado");
@@ -52,7 +52,7 @@ public class EnderecoController {
     }
 
     @PutMapping("endereco/{id}")
-    public ResponseEntity<Object> updateEndereco (@PathVariable(value = "id")UUID id,@RequestBody @Valid EnderecoRecordDto EnderecoRecordDto){
+    public ResponseEntity<Object> updateEndereco (@PathVariable(value = "id")String id,@RequestBody @Valid EnderecoRecordDto EnderecoRecordDto){
         Optional<EnderecoModel> enderecoO = enderecoRepository.findById(id);
         if (enderecoO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado");
@@ -64,7 +64,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/endereco/{id}")
-    public ResponseEntity<Object> deleteEndereco(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> deleteEndereco(@PathVariable(value = "id")String id){
         Optional<EnderecoModel> enderecoO = enderecoRepository.findById(id);
         if (enderecoO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado");

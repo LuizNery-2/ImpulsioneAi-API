@@ -1,55 +1,49 @@
 package com.unit.impulsioneai.models;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 
 @Entity
 @Table(name="tb_depoimentos")
 public class DepoimentosModel implements Serializable{
-    private static final long serialVersionUID = 1l;
+    @Serial
+    private static final long serialVersionUID = 9L;
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-    private UUID idEmpreededor;
+    @OneToOne
+    @JsonIgnoreProperties("depoimento")
+    private EmpreendedorModel empreendedor;
+
+    @Column(columnDefinition = "TEXT")
     private String depoimento;
-    private String nomeUsuario;
-    private int qdtEstrelas;
 
 
+    public String getId() {
+        return id;
+    }
 
-    public int getQdtEstrelas() {
-        return qdtEstrelas;
-    }
-    public void setQdtEstrelas(int qdtEstrelas) {
-        this.qdtEstrelas = qdtEstrelas;
-    }
-    public String getNomeUsuario() {
-        return nomeUsuario;
-    }
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
     public String getDepoimento() {
         return depoimento;
     }
     public void setDepoimento(String depoimento) {
         this.depoimento = depoimento;
     }
-    public UUID getIdEmpreededor() {
-        return idEmpreededor;
+
+    public EmpreendedorModel getEmpreendedor() {
+        return empreendedor;
     }
-    public void setIdEmpreededor(UUID idEmpreededor) {
-        this.idEmpreededor = idEmpreededor;
+
+    public void setEmpreendedor(EmpreendedorModel empreendedor) {
+        this.empreendedor = empreendedor;
     }
-    
+
+
 }

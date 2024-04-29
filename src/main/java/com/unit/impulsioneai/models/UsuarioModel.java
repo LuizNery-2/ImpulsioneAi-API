@@ -7,16 +7,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_usuarios")
 public class UsuarioModel implements Serializable, UserDetails {
+    @Serial
     private static final long serialVersionUID = 1L;
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,6 +27,14 @@ public class UsuarioModel implements Serializable, UserDetails {
     @JsonIgnoreProperties("senha")
     private String senha;
     private String cpf;
+
+    @ManyToMany
+    @JoinTable(
+            name = "favoritos",
+            joinColumns =  @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "empreendedor_id")
+    )
+    private List<EmpreendedorModel> empreendedoresFavoritos = new ArrayList<>();
 
     public String getCpf() {
         return cpf;
@@ -107,5 +116,13 @@ public class UsuarioModel implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<EmpreendedorModel> getEmpreendedoresFavoritos() {
+        return empreendedoresFavoritos;
+    }
+
+    public void setEmpreendedoresFavoritos(List<EmpreendedorModel> empreendedoresFavoritos) {
+        this.empreendedoresFavoritos = empreendedoresFavoritos;
     }
 }
