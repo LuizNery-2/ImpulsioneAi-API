@@ -2,8 +2,6 @@ package com.unit.impulsioneai.models;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 

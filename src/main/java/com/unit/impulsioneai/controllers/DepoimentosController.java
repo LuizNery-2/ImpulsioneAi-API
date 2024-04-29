@@ -2,8 +2,6 @@ package com.unit.impulsioneai.controllers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import org.springframework.beans.BeanUtils;
