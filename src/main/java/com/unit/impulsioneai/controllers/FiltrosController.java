@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.unit.impulsioneai.Services.EmpreendedoresService;
 import com.unit.impulsioneai.Services.ProdutoService;
 import com.unit.impulsioneai.models.EmpreendedorModel;
+import com.unit.impulsioneai.models.NichoModel;
 import com.unit.impulsioneai.models.ProdutoModel;
 
 
@@ -30,7 +31,7 @@ public class FiltrosController {
     }
 
     @GetMapping("/filtrarEmpreendedores")
-    public ResponseEntity<List<EmpreendedorModel>> filtrarEmpreendedoresPorNicho(@RequestParam("nicho") String nicho) {
+    public ResponseEntity<List<EmpreendedorModel>> filtrarEmpreendedoresPorNicho(@RequestParam("nicho") NichoModel nicho) {
         List<EmpreendedorModel> empreendedoresFiltrados = empreendedorService.filtrarPorNicho(nicho);
         return ResponseEntity.ok(empreendedoresFiltrados);
     }
