@@ -58,7 +58,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private String senha;
     private String nomeEmpreendimento;
     private String email;
-    private int planoAssinatura;
+    private String planoAssinatura;
     private String facebook;
     private String instagram;
 
@@ -129,11 +129,11 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         this.email = email;
     }
 
-    public int getPlanoAssinatura() {
+    public String getPlanoAssinatura() {
         return planoAssinatura;
     }
 
-    public void setPlanoAssinatura(int planoAssinatura) {
+    public void setPlanoAssinatura(String planoAssinatura) {
         this.planoAssinatura = planoAssinatura;
     }
 
