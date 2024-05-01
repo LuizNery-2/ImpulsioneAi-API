@@ -17,7 +17,7 @@ import com.unit.impulsioneai.models.NichoModel;
 
 @Repository
 public interface EmpreendedoresRepository extends JpaRepository<EmpreendedorModel, UUID> {
-    UserDetails findByEmail(String email);
+    EmpreendedorModel findByEmail(String email);
 
     List<EmpreendedorModel> findByNicho(NichoModel nicho);
 

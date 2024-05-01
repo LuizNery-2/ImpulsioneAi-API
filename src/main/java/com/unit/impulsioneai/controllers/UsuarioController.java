@@ -81,17 +81,25 @@ public class UsuarioController {
     }
 
 
+    
     @GetMapping("/verificaUsuarios")
     public ResponseEntity<Object> verificarUsuarioPorEmail(@RequestParam String email) {
         UsuarioModel usuario = usuarioRepository.findByEmail(email);
+        EmpreendedorModel empreendedor = empreendedoresRepository.findByEmail(email);
+
         if (usuario != null) {
             Map<String, String> response = new HashMap<>();
             response.put("id", usuario.getIdUsuario().toString());
             response.put("nome", usuario.getNome());
             return ResponseEntity.ok(response);
+        } else if (empreendedor != null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("id", empreendedor.getIdEmpreededor().toString());
+            response.put("nome", empreendedor.getNomeCompleto());
+            return ResponseEntity.ok(response);
         } else {
             Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("mensagem", "Usuário não encontrado.");
+            errorResponse.put("mensagem", "Usuário ou empreendedor não encontrado.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
     }
