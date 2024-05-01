@@ -39,7 +39,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/email").permitAll()
                         .requestMatchers(HttpMethod.GET, "/verificaUsuarios").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/verificaUsuarios").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/editarSenha").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/editarSenha/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/editarSenha").permitAll()
                         .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cartao").permitAll()
@@ -60,9 +60,6 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET,"/admin").hasRole("ADMIN")
 //=======
                        .requestMatchers(HttpMethod.GET, "/verificaUsuarios").permitAll()
-                       .requestMatchers(HttpMethod.PUT, "/editarSenha").permitAll()
-                      .requestMatchers(HttpMethod.GET, "/editarSenha").permitAll()
-                       .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
                        .requestMatchers(HttpMethod.POST, "/cartao").permitAll()
                       .requestMatchers(HttpMethod.GET, "/cartao").permitAll()
 
