@@ -3,11 +3,8 @@ package com.unit.impulsioneai.models;
 import java.io.Serializable;
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_cartoes")
@@ -17,6 +14,10 @@ public class CartaoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idCartao;
+
+    @OneToOne
+    @JsonIgnoreProperties("cartao")
+    private EmpreendedorModel empreendedor;
 
     private String numeroCartao;
     private String nomeCartao;
@@ -87,6 +88,11 @@ public class CartaoModel implements Serializable {
         throw new UnsupportedOperationException("Unimplemented method 'setCvvCriptografado'");
     }
 
-    
+    public EmpreendedorModel getEmpreendedor() {
+        return empreendedor;
+    }
 
+    public void setEmpreendedor(EmpreendedorModel empreendedor) {
+        this.empreendedor = empreendedor;
+    }
 }
