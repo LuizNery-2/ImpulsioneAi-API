@@ -116,5 +116,19 @@
 
 //         assertEquals(HttpStatus.OK, response.getStatusCode());
 //         assertEquals("Anuncio deletado com sucesso", response.getBody());
-//     }
-// }
+//     
+    @Test
+    public void testSecurityFilterChain() throws Exception {
+        httpSecurity.csrf().disable()
+                .authorizeRequests(authorize -> authorize
+                        .anyRequest().authenticated())
+                .addFilterBefore(securityFilter, SecurityFilter.class);
+
+        SecurityFilterChain filterChain = securityFilterChain.getFilterChain(httpSecurity);
+        assertNotNull(filterChain);
+
+        assertEquals(filterChain.getFilters().size(), 1);
+        assertEquals(filterChain.getFilters().get(0), securityFilter);
+    }
+}
+
