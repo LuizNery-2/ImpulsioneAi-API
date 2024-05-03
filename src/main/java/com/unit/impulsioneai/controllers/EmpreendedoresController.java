@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.unit.impulsioneai.Services.EmpreendedorService;
 import com.unit.impulsioneai.models.EnderecoModel;
@@ -92,6 +93,18 @@ public class EmpreendedoresController {
         return ResponseEntity.status(HttpStatus.OK).body(empreendedorO.get());
     }
 
+    @GetMapping("/verificaPlanosEmpreendedores")
+    public ResponseEntity<List<EmpreendedorModel>> getAllPlanoEmpreendedores() {
+        
+        List<EmpreendedorModel> empreendedores = empreendedoresRepository.findAll().stream()
+                .filter(empreendedor -> !empreendedor.getPlanoAssinatura().equals("Gratuito"))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(empreendedores);
+    }
+
+
+    
     @PutMapping("empreendedores/{id}")
     public ResponseEntity<Object> updateEmpreendedor (@PathVariable(value = "id")UUID id,@RequestBody @Valid EmpreendedoresRecordDto empreendedoresRecordDto){
         Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(id);
