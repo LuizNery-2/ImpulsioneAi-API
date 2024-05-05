@@ -14,7 +14,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "tb_empreendedor")
-@JsonIgnoreProperties({"senha","password"})
+@JsonIgnoreProperties({"senha","password","accountNonExpired","accountNonLocked","credentialsNonExpired","authorities"})
 public class EmpreendedorModel implements Serializable, UserDetails {
 
     @Serial
@@ -223,7 +223,6 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     }
 
     @Override
-    @JsonIgnoreProperties("password")
     public String getPassword() {
         return senha;
     }

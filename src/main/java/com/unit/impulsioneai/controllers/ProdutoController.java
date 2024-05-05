@@ -32,11 +32,11 @@ public class ProdutoController {
 
 
 
-    @PostMapping("{idEmpreendedor}/produtos")
-    public ResponseEntity<Object> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto, @PathVariable(value = "idEmpreendedor") UUID idEmpreendedor){
+    @PostMapping("/produtos")
+    public ResponseEntity<Object> saveProdutos(@RequestBody @Valid ProdutoRecordDto produtoRecordDto){
 
         var produtoModel = new ProdutoModel();
-        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(idEmpreendedor);
+        Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(produtoRecordDto.idEmpreendedor());
         if (empreendedorO.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendeendedor não encontrado");
         }

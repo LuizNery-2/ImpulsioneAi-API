@@ -13,6 +13,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "tb_usuarios")
+@JsonIgnoreProperties({"senha","password","accountNonExpired","accountNonLocked","credentialsNonExpired","authorities"})
 public class UsuarioModel implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;

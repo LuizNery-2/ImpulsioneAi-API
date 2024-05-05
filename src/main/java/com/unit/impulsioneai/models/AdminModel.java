@@ -1,6 +1,7 @@
 package com.unit.impulsioneai.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_admin")
+@JsonIgnoreProperties({"senha","password","accountNonExpired","accountNonLocked","credentialsNonExpired","authorities"})
 public class AdminModel implements Serializable, UserDetails {
 
     @Serial
