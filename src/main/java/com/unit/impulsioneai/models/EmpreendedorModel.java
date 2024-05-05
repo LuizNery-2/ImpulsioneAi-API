@@ -50,6 +50,7 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     private int planoAssinatura;
     private String facebook;
     private String instagram;
+    private  String nomeExibicao;
 
     @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("empreendedor")
@@ -291,4 +292,19 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         this.dataNascimento = dataNascimento;
     }
 
+    public String getNomeExibicao() {
+        return nomeExibicao;
+    }
+
+    public void setNomeExibicao(String nomeExibicao) {
+        this.nomeExibicao = nomeExibicao;
+    }
+
+    public CartaoModel getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(CartaoModel cartao) {
+        this.cartao = cartao;
+    }
 }

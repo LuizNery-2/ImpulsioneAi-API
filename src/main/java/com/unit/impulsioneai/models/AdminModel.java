@@ -25,7 +25,8 @@ public class AdminModel implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idAdmin;
-    private String nome;
+    private String nome = "";
+    private  String nomeExibicao;
     private String password;
     private String email;
 
@@ -86,5 +87,13 @@ public class AdminModel implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getNomeExibicao() {
+        return nomeExibicao;
+    }
+
+    public void setNomeExibicao(String nomeExibicao) {
+        this.nomeExibicao = nomeExibicao;
     }
 }

@@ -29,6 +29,8 @@ public class UsuarioModel implements Serializable, UserDetails {
     private String senha;
     private String cpf;
 
+    private  String nomeExibicao;
+
     @ManyToMany
     @JoinTable(
             name = "favoritos",
@@ -133,5 +135,17 @@ public class UsuarioModel implements Serializable, UserDetails {
 
     public List<AvaliacaoModel> getAvaliacoes() {
         return avaliacoes;
+    }
+
+    public String getNomeExibicao() {
+        return nomeExibicao;
+    }
+
+    public void setNomeExibicao(String nomeExibicao) {
+        this.nomeExibicao = nomeExibicao;
+    }
+
+    public void setAvaliacoes(List<AvaliacaoModel> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 }

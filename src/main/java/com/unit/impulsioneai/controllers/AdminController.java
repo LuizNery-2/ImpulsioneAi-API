@@ -29,10 +29,15 @@ public class AdminController {
         AdminModel adminModel =  new AdminModel();
         BeanUtils.copyProperties(adminRecordDto, adminModel);
         String encryptedPassword = new BCryptPasswordEncoder().encode(adminRecordDto.password());
+        adminModel.setNomeExibicao(adminRecordDto.nome().split(" ")[0]);
         adminModel.setPassword(encryptedPassword);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(adminRepository.save(adminModel));
 
+    }
+    @GetMapping("/admin")
+    public ResponseEntity<List<AdminModel>> getAllAdmins(){
+        return ResponseEntity.status(HttpStatus.OK).body(adminRepository.findAll());
     }
 
     @GetMapping("/admin/{id}")
