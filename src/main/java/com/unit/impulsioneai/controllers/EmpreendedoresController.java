@@ -64,6 +64,7 @@ public class EmpreendedoresController {
             enderecoModel.setEmpreendedor(empreendedorModel);
             empreendedorModel.setEndereco(enderecoModel);
             empreendedorModel.setSenha(encryptedPassword);
+            empreendedorModel.setNomeExibicao(empreendedor.nomeCompleto().split(" ")[0]);
             empreendedoresRepository.save(empreendedorModel);
             enderecoRepository.save(enderecoModel);
 

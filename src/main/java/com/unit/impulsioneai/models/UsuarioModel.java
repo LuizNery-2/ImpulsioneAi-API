@@ -13,6 +13,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "tb_usuarios")
+@JsonIgnoreProperties({"senha","password","accountNonExpired","accountNonLocked","credentialsNonExpired","authorities"})
 public class UsuarioModel implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,6 +28,8 @@ public class UsuarioModel implements Serializable, UserDetails {
     @JsonIgnoreProperties("senha")
     private String senha;
     private String cpf;
+
+    private  String nomeExibicao;
 
     @ManyToMany
     @JoinTable(
@@ -132,5 +135,17 @@ public class UsuarioModel implements Serializable, UserDetails {
 
     public List<AvaliacaoModel> getAvaliacoes() {
         return avaliacoes;
+    }
+
+    public String getNomeExibicao() {
+        return nomeExibicao;
+    }
+
+    public void setNomeExibicao(String nomeExibicao) {
+        this.nomeExibicao = nomeExibicao;
+    }
+
+    public void setAvaliacoes(List<AvaliacaoModel> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 }

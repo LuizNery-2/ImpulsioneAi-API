@@ -40,6 +40,7 @@ public class UsuarioController {
         BeanUtils.copyProperties(usuarioRecordDto,usuarioModel);
         String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioRecordDto.senha());
         usuarioModel.setSenha(encryptedPassword);
+        usuarioModel.setNomeExibicao(usuarioRecordDto.nome().split(" ")[0]);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuarioModel));
     }
 
