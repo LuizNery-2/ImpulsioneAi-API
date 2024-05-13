@@ -43,7 +43,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/editarSenha").permitAll()
                         .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cartao").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cartao").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cartao/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/filtrarProdutos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/filtrarEmpreendedores").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/admin").hasRole("ADMIN")
