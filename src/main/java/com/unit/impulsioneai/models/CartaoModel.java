@@ -21,9 +21,18 @@ public class CartaoModel implements Serializable {
 
     private String numeroCartao;
     private String nomeCartao;
+    private String PrimeirosDigitos;
     private String dataValidade;
     private String cvv;
     private String bandeira;
+
+    public String getPrimeirosDigitos() {
+        return PrimeirosDigitos;
+    }
+
+    public void setPrimeirosDigitos(String primeirosDigitos) {
+        PrimeirosDigitos = primeirosDigitos;
+    }
 
     public int getIdCartao() {
         return idCartao;

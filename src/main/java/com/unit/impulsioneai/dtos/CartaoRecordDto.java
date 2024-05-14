@@ -2,7 +2,7 @@ package com.unit.impulsioneai.dtos;
 
 import java.util.UUID;
 
-public record CartaoRecordDto(UUID idEmpreendedor, String numeroCartao, String nomeCartao, String dataValidade, String cvv, String bandeira) {
+public record CartaoRecordDto(UUID idEmpreendedor, String numeroCartao, String PrimeirosDigitos,  String nomeCartao, String dataValidade, String cvv, String bandeira) {
 
     public String getNumeroCartao() {
         return numeroCartao;
