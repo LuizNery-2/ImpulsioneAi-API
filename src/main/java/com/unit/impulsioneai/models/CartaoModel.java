@@ -13,7 +13,7 @@ public class CartaoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idCartao;
+    private int idCartao;
 
     @OneToOne
     @JsonIgnoreProperties("cartao")
@@ -21,15 +21,24 @@ public class CartaoModel implements Serializable {
 
     private String numeroCartao;
     private String nomeCartao;
+    private String PrimeirosDigitos;
     private String dataValidade;
     private String cvv;
     private String bandeira;
 
-    public UUID getIdCartao() {
+    public String getPrimeirosDigitos() {
+        return PrimeirosDigitos;
+    }
+
+    public void setPrimeirosDigitos(String primeirosDigitos) {
+        PrimeirosDigitos = primeirosDigitos;
+    }
+
+    public int getIdCartao() {
         return idCartao;
     }
 
-    public void setIdCartao(UUID idCartao) {
+    public void setIdCartao(int idCartao) {
         this.idCartao = idCartao;
     }
 

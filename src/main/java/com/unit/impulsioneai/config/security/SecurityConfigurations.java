@@ -44,6 +44,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/editarSenha").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cartao").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cartao/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/deleteCartao/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/filtrarProdutos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/filtrarEmpreendedores").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/admin").hasRole("ADMIN")
@@ -58,7 +59,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE,"/endereco").hasAnyRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(HttpMethod.GET,"/admin").hasRole("ADMIN")
-                       
+                        .requestMatchers(HttpMethod.DELETE, "/nichos/**").permitAll()
 
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
