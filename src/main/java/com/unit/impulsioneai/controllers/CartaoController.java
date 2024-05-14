@@ -1,7 +1,7 @@
 package com.unit.impulsioneai.controllers;
 
 import com.unit.impulsioneai.models.EmpreendedorModel;
-import com.unit.impulsioneai.models.UsuarioModel;
+import com.unit.impulsioneai.models.NichoModel;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unit.impulsioneai.dtos.CartaoRecordDto;
 import com.unit.impulsioneai.models.CartaoModel;
 import com.unit.impulsioneai.repositories.CartaoRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import java.util.Optional;
@@ -71,6 +74,38 @@ public class CartaoController {
         }
         
         return ResponseEntity.status(HttpStatus.OK).body(cartao);
+    }
+
+
+
+    
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Transactional
+    @DeleteMapping("/deleteCartao/{id}")
+    public ResponseEntity<Object> deleteCartao(@PathVariable(value = "id") int id) {
+        System.out.println("Received request to delete Cartao with id: " + id);
+
+        Optional<CartaoModel> cartaoO = cartaoRepository.findById(id);
+        if (cartaoO.isEmpty()) {
+            System.out.println("Cartao not found with id: " + id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cartão não encontrado");
+        }
+
+        
+        int deletedCount = entityManager.createNativeQuery("DELETE FROM tb_cartoes WHERE id_cartao = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+
+        if (deletedCount > 0) {
+            System.out.println("Cartao deleted successfully");
+            return ResponseEntity.status(HttpStatus.OK).body("Cartão deletado com sucesso");
+        } else {
+            System.out.println("Failed to delete Cartao with id: " + id);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao deletar o Cartão");
+        }
     }
 
 }
