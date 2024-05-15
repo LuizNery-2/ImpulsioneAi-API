@@ -8,10 +8,14 @@ import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import com.unit.impulsioneai.repositories.NichoRepository;
 import com.unit.impulsioneai.repositories.ProdutoRepository;
 import com.unit.impulsioneai.repositories.UsuarioRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EmpreendedorService {
@@ -54,6 +58,18 @@ public class EmpreendedorService {
             empreendedor.setNumeroFavoritos(empreendedor.getNumeroFavoritos() - 1);
             usuarioRepository.save(usuario); // Salva o usuário atualizado
             empreendedoresRepository.save(empreendedor); // Salva o empreendedor atualizado
+        }
+    }
+
+
+    public EmpreendedorModel updatePlanoAssinatura(UUID id, String planoAssinatura) {
+        Optional<EmpreendedorModel> optionalEmpreendedor = empreendedoresRepository.findById(id);
+        if (optionalEmpreendedor.isPresent()) {
+            EmpreendedorModel empreendedor = optionalEmpreendedor.get();
+            empreendedor.setPlanoAssinatura(planoAssinatura);
+            return empreendedoresRepository.save(empreendedor);
+        } else {
+            throw new EntityNotFoundException("Empreendedor not found with id " + id);
         }
     }
 
