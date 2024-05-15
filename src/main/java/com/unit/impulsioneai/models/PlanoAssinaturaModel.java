@@ -21,7 +21,7 @@ public class PlanoAssinaturaModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idPlanoAssinatura;
+    private int idPlanoAssinatura;
 
     private String nome;
     private String descricao;
