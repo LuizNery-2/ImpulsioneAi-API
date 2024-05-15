@@ -60,6 +60,18 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(HttpMethod.GET,"/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/nichos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/assinaturas").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/assinaturas/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/assinaturas").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/assinaturas/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/assinaturas/**").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/depoimento").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/depoimento/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/depoimento").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/depoimento/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/depoimento/**").permitAll()
+
 
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
