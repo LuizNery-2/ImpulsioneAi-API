@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unit.impulsioneai.dtos.EmpreendedoresRecordDto;
+import com.unit.impulsioneai.dtos.PlanoAssinaturaRecordDto;
 import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 
@@ -116,6 +117,22 @@ public class EmpreendedoresController {
         BeanUtils.copyProperties(empreendedoresRecordDto,empreendedorModel);
         return ResponseEntity.status(HttpStatus.OK).body(empreendedoresRepository.save(empreendedorModel));
 
+    }
+
+    
+
+    @PutMapping("empreendedoresPlano/{id}")
+    public ResponseEntity<EmpreendedorModel> updatePlanoAssinatura(
+            @PathVariable UUID id,
+            @RequestBody PlanoAssinaturaRecordDto planoAssinaturaRecordDto) {
+        // Extraia o campo "nome" do DTO para atualizar o campo "planoAssinatura"
+        String planoAssinatura = planoAssinaturaRecordDto.nome();
+        if (planoAssinatura == null || planoAssinatura.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        EmpreendedorModel updatedEmpreendedor = empreendedorService.updatePlanoAssinatura(id, planoAssinatura);
+        return ResponseEntity.ok(updatedEmpreendedor);
     }
 
     @DeleteMapping("/empreendedores/{id}")
