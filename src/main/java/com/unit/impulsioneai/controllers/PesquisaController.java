@@ -48,9 +48,6 @@ public class PesquisaController {
     @GetMapping("/buscar/empreendedores/{pesquisa}")
     public ResponseEntity<Object> pesquisarEmpreendedores(@PathVariable(value = "pesquisa") String pesquisa){
         List<EmpreendedorModel> empreendedoresPesquisados = empreendedoresRepository.findBySearch(pesquisa);
-        if (empreendedoresPesquisados.isEmpty()){
-            return ResponseEntity.status(HttpStatus.OK).body("Nenhum produto encontrado");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(empreendedoresPesquisados);
 
     }
