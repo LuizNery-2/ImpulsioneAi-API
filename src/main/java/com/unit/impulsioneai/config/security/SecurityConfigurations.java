@@ -49,6 +49,9 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/filtrarEmpreendedores").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/empreendedores").hasAnyRole("EMPREENDEDOR")
+
+                        .requestMatchers(HttpMethod.PUT, "/empreendedores/**").hasAnyRole("EMPREENDEDOR")
+
                         .requestMatchers(HttpMethod.PUT,"/usuarios").hasAnyRole("USUARIO")
                         .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.PUT,"/endereco").hasAnyRole("EMPREENDEDOR")
