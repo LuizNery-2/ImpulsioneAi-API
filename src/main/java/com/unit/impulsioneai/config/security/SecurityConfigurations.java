@@ -50,6 +50,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT,"/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/empreendedores/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/empreendedoresPlano/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/editarBiografia/**").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/usuarios").hasAnyRole("USUARIO")
                         .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.PUT,"/endereco").hasAnyRole("EMPREENDEDOR")

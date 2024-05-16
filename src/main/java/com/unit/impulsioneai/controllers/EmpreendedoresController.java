@@ -144,4 +144,25 @@ public class EmpreendedoresController {
         return ResponseEntity.status(HttpStatus.OK).body("Empreendedor deletado com sucesso");
     }
 
+    @PutMapping("editarBiografia/{id}")
+    public ResponseEntity<Object> updateBiografiaEmpreendedor(@PathVariable(value = "id") UUID id,
+                                                            @RequestBody @Valid EmpreendedoresRecordDto empreendedorRecordDto) {
+        Optional<EmpreendedorModel> empreendedorOptional = empreendedoresRepository.findById(id);
+        if (empreendedorOptional.isPresent()) {
+            EmpreendedorModel empreendedorModel = empreendedorOptional.get();
+            // Altera a biografia do empreendedor
+            alterarBiografiaEmpreendedor(empreendedorModel, empreendedorRecordDto.getBiografia());
+            return ResponseEntity.status(HttpStatus.OK).body(empreendedorModel);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
+        }
+    }
+
+    private void alterarBiografiaEmpreendedor(EmpreendedorModel empreendedorModel, String novaBiografia) {
+        if (novaBiografia != null && !novaBiografia.isEmpty()) {
+            empreendedorModel.setBiografia(novaBiografia);
+            empreendedoresRepository.save(empreendedorModel);
+        }
+    }
+
 }
