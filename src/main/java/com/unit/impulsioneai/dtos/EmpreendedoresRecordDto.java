@@ -11,5 +11,9 @@ public record EmpreendedoresRecordDto( int idNicho,
         ,String email, String planoAssinatura, String facebook, String instagram, String modalidade, int numeroVisitas
 
     ) {
+
+    public String getBiografia() {
+       return biografia;
+    }
     
 }
