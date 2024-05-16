@@ -48,15 +48,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/filtrarProdutos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/filtrarEmpreendedores").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/admin").hasRole("ADMIN")
-<<<<<<< HEAD
-                        .requestMatchers(HttpMethod.PUT, "/empreendedores").hasAnyRole("EMPREENDEDOR")
-
-                        .requestMatchers(HttpMethod.PUT, "/empreendedores/**").hasAnyRole("EMPREENDEDOR")
-
-=======
-                        .requestMatchers(HttpMethod.PUT, "/empreendedores/**").hasAnyRole("EMPREENDEDOR")
+                        .requestMatchers(HttpMethod.PUT, "/empreendedores/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/empreendedoresPlano/**").permitAll()
->>>>>>> 26aae43b79d48ba1df0cfecc2798717fc1bd1c7b
                         .requestMatchers(HttpMethod.PUT,"/usuarios").hasAnyRole("USUARIO")
                         .requestMatchers(HttpMethod.PUT, "/produtos").hasAnyRole("EMPREENDEDOR")
                         .requestMatchers(HttpMethod.PUT,"/endereco").hasAnyRole("EMPREENDEDOR")

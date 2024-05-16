@@ -119,8 +119,6 @@ public class EmpreendedoresController {
 
     }
 
-    
-
     @PutMapping("empreendedoresPlano/{id}")
     public ResponseEntity<EmpreendedorModel> updatePlanoAssinatura(
             @PathVariable UUID id,
