@@ -1,20 +1,27 @@
 package com.unit.impulsioneai.Services;
 
-import com.unit.impulsioneai.models.EmpreendedorModel;
-import com.unit.impulsioneai.models.ProdutoModel;
-import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
-import com.unit.impulsioneai.repositories.ProdutoRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.unit.impulsioneai.models.ProdutoModel;
+import com.unit.impulsioneai.repositories.ProdutoRepository;
+
+import com.unit.impulsioneai.models.EmpreendedorModel;
+import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 
 @Service
 public class ProdutoService {
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
     @Autowired
     EmpreendedoresRepository empreendedoresRepository;
-    @Autowired
-    ProdutoRepository produtoRepository;
+
+    public List<ProdutoModel> filtrarPorFaixaDePreco(double precoMin, double precoMax) {
+        return produtoRepository.findByPrecoBetween(precoMin, precoMax);
+    }
 
     public void cadastrarEmpreendedorProdutos (ProdutoModel produtoModel, EmpreendedorModel empreendedorModel){
 

@@ -4,5 +4,5 @@ import java.util.UUID;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DepoimentosRecordDto(UUID idEmpreendedor, @NotBlank String depoimento ){
+public record DepoimentosRecordDto(UUID idEmpreendedor, String depoimento, int qtdEstrelas){
 } 

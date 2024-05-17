@@ -26,6 +26,13 @@ public class AdminController {
 
     @PostMapping("/admin")
     public ResponseEntity<AdminModel> saveAdmin(@RequestBody AdminRecordDto adminRecordDto){
+    // public ResponseEntity<AdminModel> saveAdmin(){
+        // AdminRecordDto adminRecordDto = new AdminRecordDto();
+        // adminRecordDto.setNome("Key admin da silva");
+        // adminRecordDto.setEmail("designtopamo@gmail.com");
+        // adminRecordDto.setPassword("123456789");
+        // AdminRecordDto adminRecordDto = AdminRecordDto.createDefault();
+
         AdminModel adminModel =  new AdminModel();
         BeanUtils.copyProperties(adminRecordDto, adminModel);
         String encryptedPassword = new BCryptPasswordEncoder().encode(adminRecordDto.password());

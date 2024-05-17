@@ -8,8 +8,12 @@ public record EmpreendedoresRecordDto( int idNicho,
         String biografia,
         Date dataNascimento, 
         String telefone, String site, String nomeCompleto, String cpf, String mei, String senha
-        ,String email, int planoAssinatura, String facebook, String instagram, String modalidade, int numeroVisitas
+        ,String email, String planoAssinatura, String facebook, String instagram, String modalidade, int numeroVisitas
 
     ) {
+
+    public String getBiografia() {
+       return biografia;
+    }
     
 }

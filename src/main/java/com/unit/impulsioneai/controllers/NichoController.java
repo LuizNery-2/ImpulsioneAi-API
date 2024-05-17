@@ -1,6 +1,5 @@
 package com.unit.impulsioneai.controllers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unit.impulsioneai.dtos.NichoRecordDto;
 import com.unit.impulsioneai.models.NichoModel;
 import com.unit.impulsioneai.repositories.NichoRepository;

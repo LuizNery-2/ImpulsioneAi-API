@@ -82,44 +82,71 @@ public class UsuarioController {
     }
 
 
+    
     @GetMapping("/verificaUsuarios")
     public ResponseEntity<Object> verificarUsuarioPorEmail(@RequestParam String email) {
         UsuarioModel usuario = usuarioRepository.findByEmail(email);
+        EmpreendedorModel empreendedor = empreendedoresRepository.findByEmail(email);
+
         if (usuario != null) {
             Map<String, String> response = new HashMap<>();
             response.put("id", usuario.getIdUsuario().toString());
             response.put("nome", usuario.getNome());
             return ResponseEntity.ok(response);
+        } else if (empreendedor != null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("id", empreendedor.getIdEmpreededor().toString());
+            response.put("nome", empreendedor.getNomeCompleto());
+            return ResponseEntity.ok(response);
         } else {
             Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("mensagem", "Usuário não encontrado.");
+            errorResponse.put("mensagem", "Usuário ou empreendedor não encontrado.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
     }
 
+
+
     @PutMapping("editarSenha/{id}")
     public ResponseEntity<Object> updateSenhaUsuario(@PathVariable(value = "id") UUID id,
-                                                 @RequestBody @Valid UsuarioRecordDto usuarioRecordDto) {
+                                                    @RequestBody @Valid UsuarioRecordDto usuarioRecordDto) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findById(id);
-        if (usuarioOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+        if (usuarioOptional.isPresent()) {
+            UsuarioModel usuarioModel = usuarioOptional.get();
+            // Altera a senha do usuário
+            alterarSenhaUsuario(usuarioModel, usuarioRecordDto.getSenha());
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioModel);
+        } else {
+            // Se o ID não pertencer a um usuário, verifica no banco de dados de empreendedores
+            Optional<EmpreendedorModel> empreendedorOptional = empreendedoresRepository.findById(id);
+            if (empreendedorOptional.isPresent()) {
+                EmpreendedorModel empreendedorModel = empreendedorOptional.get();
+                // Altera a senha do empreendedor
+                alterarSenhaEmpreendedor(empreendedorModel, usuarioRecordDto.getSenha());
+                return ResponseEntity.status(HttpStatus.OK).body(empreendedorModel);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário ou empreendedor não encontrado");
+            }
         }
-
-        UsuarioModel usuarioModel = usuarioOptional.get();
-        
-        
-        if (usuarioRecordDto.getSenha() != null && !usuarioRecordDto.getSenha().isEmpty()) {
-
-            String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioRecordDto.senha());
-            usuarioModel.setSenha(encryptedPassword);
-
-        }
-
-       
-        usuarioModel = usuarioRepository.save(usuarioModel);
-
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioModel);
     }
+
+
+    private void alterarSenhaEmpreendedor(EmpreendedorModel empreendedorModel, String novaSenha) {
+        if (novaSenha != null && !novaSenha.isEmpty()) {
+            String encryptedPassword = new BCryptPasswordEncoder().encode(novaSenha);
+            empreendedorModel.setSenha(encryptedPassword);
+            empreendedoresRepository.save(empreendedorModel);
+        }
+    }
+
+    private void alterarSenhaUsuario(UsuarioModel usuarioModel, String novaSenha) {
+        if (novaSenha != null && !novaSenha.isEmpty()) {
+            String encryptedPassword = new BCryptPasswordEncoder().encode(novaSenha);
+            usuarioModel.setSenha(encryptedPassword);
+            usuarioRepository.save(usuarioModel);
+        }
+    }
+
 
     @PostMapping("/usuario/{idUsuario}/{idEmpreendedor}")
     public ResponseEntity<Object> favoritarEmpreendedor(@PathVariable(value = "idUsuario") UUID idUsuario,@PathVariable(value = "idEmpreendedor") UUID idEmpreendedor){

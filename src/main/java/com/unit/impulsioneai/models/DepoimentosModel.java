@@ -25,6 +25,15 @@ public class DepoimentosModel implements Serializable{
     @Column(columnDefinition = "TEXT")
     private String depoimento;
 
+    private int qtdEstrelas;
+
+    public int getQtdEstrelas() {
+        return qtdEstrelas;
+    }
+
+    public void setQtdEstrelas(int qtdEstrelas) {
+        this.qtdEstrelas = qtdEstrelas;
+    }
 
     public String getId() {
         return id;
