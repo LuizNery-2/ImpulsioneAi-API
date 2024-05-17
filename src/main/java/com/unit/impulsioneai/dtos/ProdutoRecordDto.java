@@ -8,5 +8,6 @@ import java.util.UUID;
 public record ProdutoRecordDto(@NotBlank String nome,
                                @NotNull double preco,
                                String urlFoto,
-                               UUID idEmpreendedor) {
+                               UUID idEmpreendedor,
+                               int idNicho) {
 }
