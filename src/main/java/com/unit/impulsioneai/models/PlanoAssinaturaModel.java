@@ -31,7 +31,15 @@ public class PlanoAssinaturaModel implements Serializable{
 
 
     //Getters and Setters
-    
+
+    public UUID getIdPlanoAssinatura() {
+        return idPlanoAssinatura;
+    }
+
+    public void setIdPlanoAssinatura(UUID idPlanoAssinatura) {
+        this.idPlanoAssinatura = idPlanoAssinatura;
+    }
+
     public String getNome() {
         return nome;
     }
