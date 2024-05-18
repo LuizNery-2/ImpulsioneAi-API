@@ -21,7 +21,7 @@ public class PlanoAssinaturaModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idPlanoAssinatura;
+    private UUID idPlanoAssinatura;
 
     private String nome;
     private String descricao;
@@ -31,7 +31,10 @@ public class PlanoAssinaturaModel implements Serializable{
 
 
     //Getters and Setters
-    
+
+    public UUID getIdPlanoAssinatura() {
+        return idPlanoAssinatura;
+    }
     public String getNome() {
         return nome;
     }

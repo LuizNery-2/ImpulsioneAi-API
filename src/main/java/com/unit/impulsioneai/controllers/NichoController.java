@@ -46,6 +46,14 @@ public class NichoController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(nichoO.get());
     }
+    @GetMapping("nichos/nome/{nomeNicho}")
+    public ResponseEntity<Object> getNichoByName(@PathVariable(value = "nomeNicho") String nicho){
+        Optional<NichoModel> nichoO = nichoRepository.findByNicho(nicho);
+        if (nichoO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nicho não encontrado");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(nichoO.get());
+    }
 
     @PutMapping("/nichos/{id}")
     public ResponseEntity<Object> updateNicho(@PathVariable(value = "id") int id, @RequestBody @Valid NichoRecordDto nichoRecordDto)
