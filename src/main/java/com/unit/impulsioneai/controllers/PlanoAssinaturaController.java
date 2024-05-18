@@ -41,7 +41,7 @@ public class PlanoAssinaturaController {
     }
 
     @GetMapping("/assinaturas/{id}")
-    public ResponseEntity<Object> getAssinaturas(@PathVariable(value = "id")int id){
+    public ResponseEntity<Object> getAssinaturas(@PathVariable(value = "id")UUID id){
         Optional<PlanoAssinaturaModel> assinaturaO = planoAssinaturaRepository.findById(id);
         if (assinaturaO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O empreendedor não possui assinaturas");
@@ -50,7 +50,7 @@ public class PlanoAssinaturaController {
     }
 
     @PutMapping("assinaturas/{id}")
-    public ResponseEntity<Object> updateAssinatura (@PathVariable(value = "id")int id,@RequestBody @Valid PlanoAssinaturaRecordDto planoAssinaturaRecordDto){
+    public ResponseEntity<Object> updateAssinatura (@PathVariable(value = "id")UUID id,@RequestBody @Valid PlanoAssinaturaRecordDto planoAssinaturaRecordDto){
         Optional<PlanoAssinaturaModel> assinaturaO = planoAssinaturaRepository.findById(id);
         if (assinaturaO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O empreendedor não possui assinaturas para serem atualizadas");
@@ -62,7 +62,7 @@ public class PlanoAssinaturaController {
     }
 
     @DeleteMapping("/assinaturas/{id}")
-    public ResponseEntity<Object> deleteAssinatura(@PathVariable(value = "id")int id){
+    public ResponseEntity<Object> deleteAssinatura(@PathVariable(value = "id")UUID id){
         Optional<PlanoAssinaturaModel> assinaturaO = planoAssinaturaRepository.findById(id);
         if (assinaturaO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O empreendedor não possui assinaturas para serem deletadas");
