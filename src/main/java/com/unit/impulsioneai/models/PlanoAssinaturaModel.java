@@ -20,8 +20,8 @@ public class PlanoAssinaturaModel implements Serializable{
     private static final long serialVersionUID = 4L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idPlanoAssinatura;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int idPlanoAssinatura;
 
     private String nome;
     private String descricao;
@@ -32,7 +32,7 @@ public class PlanoAssinaturaModel implements Serializable{
 
     //Getters and Setters
 
-    public UUID getIdPlanoAssinatura() {
+    public int getIdPlanoAssinatura() {
         return idPlanoAssinatura;
     }
     public String getNome() {
