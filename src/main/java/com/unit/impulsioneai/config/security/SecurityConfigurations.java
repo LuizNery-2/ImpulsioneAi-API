@@ -76,6 +76,9 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE, "/depoimento/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/depoimento/**").permitAll()
 
+                        .requestMatchers(HttpMethod.PUT,"/admin/solicitacoes/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE,"/admin/solicitacoes/**").permitAll()
+
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
