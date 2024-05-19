@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.unit.impulsioneai.Services.EmpreendedorService;
 import com.unit.impulsioneai.models.EnderecoModel;
+import com.unit.impulsioneai.models.ProdutoModel;
 import com.unit.impulsioneai.models.UsuarioModel;
 import com.unit.impulsioneai.repositories.EnderecoRepository;
 import org.slf4j.Logger;
@@ -95,15 +97,29 @@ public class EmpreendedoresController {
         return ResponseEntity.status(HttpStatus.OK).body(empreendedorO.get());
     }
 
-    @GetMapping("/verificaPlanosEmpreendedores")
-    public ResponseEntity<List<EmpreendedorModel>> getAllPlanoEmpreendedores() {
+    @GetMapping("/empreendedorProdutos/{id}")
+    public ResponseEntity<Set<ProdutoModel>> getProdutosByEmpreendedorId(@PathVariable UUID id) {
+        Optional<EmpreendedorModel> empreendedorOpt = empreendedoresRepository.findById(id);
         
-        List<EmpreendedorModel> empreendedores = empreendedoresRepository.findAll().stream()
-                .filter(empreendedor -> !empreendedor.getPlanoAssinatura().equals("Gratuito"))
+        if (!empreendedorOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    
+        EmpreendedorModel empreendedor = empreendedorOpt.get();
+        Set<ProdutoModel> produtos = empreendedor.getProdutos();
+    
+        return ResponseEntity.status(HttpStatus.OK).body(produtos);
+    }
+
+    @GetMapping("/verificaProdutosEmpreendedores")
+    public ResponseEntity<List<ProdutoModel>> getAllProdutosEmpreendedores() {
+
+        List<ProdutoModel> produtos = empreendedoresRepository.findAll().stream()
+                .flatMap(empreendedor -> empreendedor.getProdutos().stream())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.status(HttpStatus.OK).body(empreendedores);
-    }
+        return ResponseEntity.status(HttpStatus.OK).body(produtos);
+}
 
 
     
