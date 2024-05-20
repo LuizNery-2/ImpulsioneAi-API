@@ -2,6 +2,7 @@ package com.unit.impulsioneai.models;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -52,6 +53,11 @@ public class DepoimentosModel implements Serializable{
 
     public void setEmpreendedor(EmpreendedorModel empreendedor) {
         this.empreendedor = empreendedor;
+    }
+
+    public Stream<EmpreendedorModel> stream() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'stream'");
     }
 
 

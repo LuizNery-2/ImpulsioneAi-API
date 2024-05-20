@@ -111,6 +111,31 @@ public class EmpreendedoresController {
         return ResponseEntity.status(HttpStatus.OK).body(produtos);
     }
 
+
+    @GetMapping("/verificaPlanosDepoimentoEmpreendedores")
+    public ResponseEntity<List<EmpreendedorModel>> getAllPlanoDepoimentoEmpreendedores() {
+
+        List<EmpreendedorModel> empreendedores = empreendedoresRepository.findAll().stream()
+                // Filtra empreendedores cujo plano de assinatura é diferente de "Gratuito"
+                .filter(empreendedor -> !empreendedor.getPlanoAssinatura().equals("Gratuito"))
+                // Filtra empreendedores que possuem depoimentos com quantidade de estrelas maior que 4
+                .filter(empreendedor -> empreendedor.getDepoimento().stream()
+                        .anyMatch(depoimento -> depoimento.getQtdEstrelas() > 3))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(empreendedores);
+    }
+
+    @GetMapping("/verificaPlanosEmpreendedores")
+    public ResponseEntity<List<EmpreendedorModel>> getAllPlanoEmpreendedores() {
+        
+        List<EmpreendedorModel> empreendedores = empreendedoresRepository.findAll().stream()
+                .filter(empreendedor -> !empreendedor.getPlanoAssinatura().equals("Gratuito"))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(empreendedores);
+    }
+
     @GetMapping("/verificaProdutosEmpreendedores")
     public ResponseEntity<List<ProdutoModel>> getAllProdutosEmpreendedores() {
 

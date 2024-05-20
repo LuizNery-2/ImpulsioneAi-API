@@ -25,9 +25,12 @@ public class EmpreendedorModel implements Serializable, UserDetails {
 
     @Column(columnDefinition = "TEXT")
     private String biografia;
-    @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
+
+
+    @OneToMany(mappedBy = "empreendedor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("empreendedor")
-    private  DepoimentosModel depoimento;
+    private List<DepoimentosModel> depoimento = new ArrayList<>();
+
 
     @OneToOne(mappedBy = "empreendedor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("empreendedor")
@@ -253,11 +256,11 @@ public class EmpreendedorModel implements Serializable, UserDetails {
         return verificado;
     }
 
-    public DepoimentosModel getDepoimento() {
+    public List<DepoimentosModel> getDepoimento() {
         return depoimento;
     }
 
-    public void setDepoimento(DepoimentosModel depoimento) {
+    public void setDepoimento(List<DepoimentosModel> depoimento) {
         this.depoimento = depoimento;
     }
 
@@ -307,4 +310,6 @@ public class EmpreendedorModel implements Serializable, UserDetails {
     public void setCartao(CartaoModel cartao) {
         this.cartao = cartao;
     }
+
+   
 }
