@@ -26,16 +26,6 @@ public class AvaliacaoModel implements Serializable{
     @JoinColumn(name = "usuario_id")
     @JsonIgnoreProperties("avaliacoes")
     private UsuarioModel usuario;
-    private int qtdEstrelas;
-
-
-
-    public int getQtdEstrelas() {
-        return qtdEstrelas;
-    }
-    public void setQtdEstrelas(int qtdEstrelas) {
-        this.qtdEstrelas = qtdEstrelas;
-    }
 
     public String getAvaliacao() {
         return avaliacao;

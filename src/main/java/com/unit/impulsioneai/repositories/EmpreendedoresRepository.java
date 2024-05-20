@@ -23,7 +23,7 @@ public interface EmpreendedoresRepository extends JpaRepository<EmpreendedorMode
     @Query("SELECT e FROM EmpreendedorModel e WHERE e.nomeEmpreendimento LIKE %:pesquisa%")
     List<EmpreendedorModel> findBySearch(@Param("pesquisa") String pesquisa);
 
-    Optional<EmpreendedorModel> findById(UUID id);
+    Optional<EmpreendedorModel> findById(UUID idEmpreededor);
 }
 
 

@@ -75,6 +75,10 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/depoimento").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/depoimento/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/depoimento/**").permitAll()
+        
+                        .requestMatchers(HttpMethod.POST, "/avaliacao").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/avaliacao/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/avaliacao").permitAll()
 
                         .requestMatchers(HttpMethod.PUT,"/admin/solicitacoes/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE,"/admin/solicitacoes/**").permitAll()

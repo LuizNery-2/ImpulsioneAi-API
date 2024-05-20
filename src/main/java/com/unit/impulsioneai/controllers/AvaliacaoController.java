@@ -38,6 +38,7 @@ public class AvaliacaoController {
 
         Optional<EmpreendedorModel> empreendedorO = empreendedoresRepository.findById(avaliacaoRecordDto.idEmpreendedor());
         Optional<UsuarioModel> usuarioO = usuarioRepository.findById(avaliacaoRecordDto.usuario());
+
         if (empreendedorO.isEmpty()){
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empreendedor não encontrado");
         }
