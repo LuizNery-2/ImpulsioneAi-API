@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.controllers;
 
 import com.unit.impulsioneai.models.EmpreendedorModel;
-import com.unit.impulsioneai.models.NichoModel;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

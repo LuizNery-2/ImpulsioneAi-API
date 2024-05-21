@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unit.impulsioneai.enums.StatusEmail;
 import com.unit.impulsioneai.models.EmailModel;
 import com.unit.impulsioneai.repositories.EmailRepository;
-
-import jakarta.mail.Part;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

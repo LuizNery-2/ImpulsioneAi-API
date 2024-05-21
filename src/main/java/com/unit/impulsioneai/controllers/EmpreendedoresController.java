@@ -1,8 +1,6 @@
 package com.unit.impulsioneai.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -11,7 +9,6 @@ import java.util.stream.Collectors;
 import com.unit.impulsioneai.Services.EmpreendedorService;
 import com.unit.impulsioneai.models.EnderecoModel;
 import com.unit.impulsioneai.models.ProdutoModel;
-import com.unit.impulsioneai.models.UsuarioModel;
 import com.unit.impulsioneai.repositories.EnderecoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unit.impulsioneai.dtos.EmpreendedoresRecordDto;

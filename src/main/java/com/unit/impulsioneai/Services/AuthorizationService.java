@@ -1,7 +1,6 @@
 package com.unit.impulsioneai.Services;
 
 
-import com.unit.impulsioneai.models.EmpreendedorModel;
 import com.unit.impulsioneai.repositories.AdminRepository;
 import com.unit.impulsioneai.repositories.EmpreendedoresRepository;
 import com.unit.impulsioneai.repositories.UsuarioRepository;
