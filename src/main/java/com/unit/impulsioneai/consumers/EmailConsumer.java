@@ -16,11 +16,11 @@ public class EmailConsumer {
     @Autowired
     EmailService emailService;
 
-    @RabbitListener(queues = "${spring.rabbitmq.queue}")
+    /*@RabbitListener(queues = "${spring.rabbitmq.queue}")
     public void listen(@Payload EmailRecordDto emailDto) {
         EmailModel emailModel = new EmailModel();
         BeanUtils.copyProperties(emailDto, emailModel);
         emailService.sendEmail(emailModel);
         System.out.println("Email Status: " + emailModel.getStatusEmail().toString());
-    }
+    }*/
 }

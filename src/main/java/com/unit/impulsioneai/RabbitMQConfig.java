@@ -1,4 +1,4 @@
-package com.unit.impulsioneai;
+/*package com.unit.impulsioneai;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -21,4 +21,4 @@ public class RabbitMQConfig {
     public Jackson2JsonMessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
-}
+}*/
