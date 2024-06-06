@@ -70,6 +70,26 @@ public class UsuarioController {
 
     }
 
+    @PutMapping("usuariosApp/{id}")
+    public ResponseEntity<Object> updateUsuarioApp(@PathVariable(value = "id") UUID id, @RequestBody @Valid UsuarioRecordDto usuarioRecordDto) {
+        Optional<UsuarioModel> usuarioO = usuarioRepository.findById(id);
+        if (usuarioO.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+        }
+        var usuarioModel = usuarioO.get();
+
+        // Preserve the current encrypted password
+        String currentEncryptedPassword = usuarioModel.getSenha();
+        
+        // Copy properties excluding the password
+        BeanUtils.copyProperties(usuarioRecordDto, usuarioModel, "senha");
+        
+        // Restore the current encrypted password
+        usuarioModel.setSenha(currentEncryptedPassword);
+
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuarioModel));
+    }
+
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<Object> deleteUsuario(@PathVariable(value = "id")UUID id){
         Optional<UsuarioModel> usuarioO = usuarioRepository.findById(id);
